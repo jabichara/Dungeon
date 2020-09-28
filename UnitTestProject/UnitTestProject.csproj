@@ -49,13 +49,18 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConsoleApp\UnitTest.cs" />
+    <Compile Include="MeasurerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SortersTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ClassLibrary\ClassLibrary.csproj">
+      <Project>{f82a3ea7-18b2-48a0-a48c-9a3cf1800a33}</Project>
+      <Name>ClassLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ConsoleApp\ConsoleApp.csproj">
       <Project>{d58c592e-77fd-4be7-96f7-91e776686512}</Project>
       <Name>ConsoleApp</Name>
