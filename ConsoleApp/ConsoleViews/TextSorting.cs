@@ -24,7 +24,7 @@ namespace ConsoleApp.ConsoleViews
                 Console.WriteLine("Длина массива - " + i);
 
                 string[] array = TextGenerator.GenerateText(i).Split();
-                Console.WriteLine("быстрая сортировка O(n^2) " + ", время выполнения - " +
+                Console.WriteLine("сортировка пузырьком O(n^2) " + ", время выполнения - " +
                     ActionTimeMeasurer.Measure(new Action(() =>
                     BubbleSorter.Sort(array))));
 
