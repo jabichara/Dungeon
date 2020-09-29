@@ -16,7 +16,7 @@ namespace UnitTestProject
         public void BubbleSortTest()
         {
             int[] arr = IntArrayGenerator.GenerateArray(1000);
-            BubbleSorter.BubbleSort(arr);
+            BubbleSorter.Sort(arr);
             int el = int.MinValue;
             for (int i = 0; i < arr.Length; i++)
             {
@@ -32,7 +32,7 @@ namespace UnitTestProject
         public void HoareSortTest()
         {
             int[] arr = IntArrayGenerator.GenerateArray(1000);
-            HoareSorter.HoareSort(arr);
+            HoareSorter.Sort(arr);
             int el = int.MinValue;
             for (int i = 0; i < arr.Length; i++)
             {
@@ -48,7 +48,7 @@ namespace UnitTestProject
         public void MergeSortTest()
         {
             int[] arr = IntArrayGenerator.GenerateArray(1000);
-            MergeSorter.MergeSort(arr);
+            MergeSorter.Sort(arr);
             int el = int.MinValue;
             for (int i = 0; i < arr.Length; i++)
             {

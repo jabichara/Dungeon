@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Comparers\StringAlphabetComparer.cs" />
     <Compile Include="Generators\IntArrayGenerator.cs" />
     <Compile Include="Generators\TextGenerator.cs" />
     <Compile Include="Measurers\ActionTimeMeasurer.cs" />

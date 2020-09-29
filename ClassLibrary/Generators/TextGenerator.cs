@@ -14,17 +14,19 @@ namespace ClassLibrary.Generators
             'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
             'w', 'x', 'y', 'z' };
 
-        public static string GenerateText(int wordCount = 1000)
+        public static string GenerateText(int wordCount = 1000, int wordLength = 5)
         {
             StringBuilder text = new StringBuilder();
-            for (int i = 0; i < wordCount; i++)
+            for (int i = 0; i < wordCount - 1; i++)
             {
-                text.Append(GenerateWord());
+                text.Append(GenerateWord(wordLength));
+                text.Append(" ");
             }
+            text.Append(GenerateWord(wordLength));
             return text.ToString();
         }
 
-        public static string GenerateWord(int wordLength = 10)
+        public static string GenerateWord(int wordLength = 5)
         {
             StringBuilder word = new StringBuilder();
             for (int i = 0; i < wordLength; i++)

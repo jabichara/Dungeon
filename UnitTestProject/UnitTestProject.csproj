@@ -49,9 +49,10 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MeasurerTest.cs" />
+    <Compile Include="Tests\MeasurerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SortersTests.cs" />
+    <Compile Include="Tests\SortersTests.cs" />
+    <Compile Include="Tests\TextSortTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

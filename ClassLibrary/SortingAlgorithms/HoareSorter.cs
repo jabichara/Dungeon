@@ -28,7 +28,7 @@ namespace ClassLibrary.SortingAlgorithms
             if (storeIndex < end) HoareSort(array, storeIndex + 1, end);
         }
 
-        public static void HoareSort(int[] array)
+        public static void Sort(int[] array)
         {
             HoareSort(array, 0, array.Length - 1);
         }
