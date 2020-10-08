@@ -20,7 +20,7 @@ namespace UnitTestProject
             int el = int.MinValue;
             for (int i = 0; i < arr.Length; i++)
             {
-                if (el == arr[i])
+                if (el > arr[i])
                 {
                     Assert.Fail();
                 }
@@ -36,7 +36,7 @@ namespace UnitTestProject
             int el = int.MinValue;
             for (int i = 0; i < arr.Length; i++)
             {
-                if (el == arr[i])
+                if (el > arr[i])
                 {
                     Assert.Fail();
                 }
@@ -52,7 +52,7 @@ namespace UnitTestProject
             int el = int.MinValue;
             for (int i = 0; i < arr.Length; i++)
             {
-                if (el == arr[i])
+                if (el > arr[i])
                 {
                     Assert.Fail();
                 }

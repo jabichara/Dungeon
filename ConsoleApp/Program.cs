@@ -14,8 +14,8 @@ namespace ConsoleApp
     {
         static void Main()
         {
-            //MeasureSortingAlgorithms.Show();
-            TextSorting.Show();
+            MeasureSortingAlgorithms.Show();
+            //TextSorting.Show();
         }
     }
 }
