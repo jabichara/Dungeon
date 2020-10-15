@@ -1,5 +1,5 @@
 ﻿using ClassLibrary.Generators;
-using ClassLibrary.SortingAlgorithms;
+using ClassLibrary.Algorithms;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UnitTestProject
+namespace UnitTestProject.Tests
 {
     [TestClass]
     public class SortersTests
@@ -58,6 +58,22 @@ namespace UnitTestProject
                 }
                 el = arr[i];
             }
+        }
+
+        [TestMethod]
+        public void SortText()
+        {
+            string[] text = TextGenerator.GenerateText(10, 5).Split();
+            MergeSorter.Sort(text);
+            Assert.AreEqual(1, 1);
+        }
+
+        [TestMethod]
+        public void BubbleSortText()
+        {
+            string[] text = TextGenerator.GenerateText(100, 5).Split();
+            BubbleSorter.Sort(text);
+            Assert.AreEqual(1, 1);
         }
     }
 }

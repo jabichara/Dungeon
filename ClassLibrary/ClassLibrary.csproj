@@ -41,14 +41,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithms\InfixСonversion.cs" />
     <Compile Include="Comparers\StringAlphabetComparer.cs" />
     <Compile Include="Generators\IntArrayGenerator.cs" />
+    <Compile Include="Generators\StackCommandInputGenerator.cs" />
     <Compile Include="Generators\TextGenerator.cs" />
     <Compile Include="Measurers\ActionTimeMeasurer.cs" />
+    <Compile Include="Parsers\StackOperationsParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SortingAlgorithms\BubbleSorter.cs" />
-    <Compile Include="SortingAlgorithms\HoareSorter.cs" />
-    <Compile Include="SortingAlgorithms\MergeSorter.cs" />
+    <Compile Include="Algorithms\BubbleSorter.cs" />
+    <Compile Include="Algorithms\HoareSorter.cs" />
+    <Compile Include="Algorithms\MergeSorter.cs" />
+    <Compile Include="Structures\StackRealization.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

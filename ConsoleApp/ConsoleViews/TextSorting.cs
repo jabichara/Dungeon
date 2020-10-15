@@ -1,6 +1,6 @@
 ﻿using ClassLibrary.Generators;
 using ClassLibrary.Measurers;
-using ClassLibrary.SortingAlgorithms;
+using ClassLibrary.Algorithms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
