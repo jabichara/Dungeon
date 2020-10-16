@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ClassLibrary.Measurers;
-using ClassLibrary.SortingAlgorithms;
+using ClassLibrary.Algorithms;
 using ClassLibrary.Generators;
 using ConsoleApp.ConsoleViews;
 
