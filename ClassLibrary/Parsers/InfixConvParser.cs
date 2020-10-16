@@ -13,13 +13,13 @@ namespace ClassLibrary.Parsers
         /// </summary>
         /// <remarks>
         /// Example: 
-        /// a+b-100
-        /// a=12
-        /// b=13
+        /// Input: "a+b-100
+        ///         a=12
+        ///         b=13"
         /// Returns: { (Number, 12), (Operation, Plus), (Number, 13), 
         /// (Operation, Minus), (Number, 100) }
         /// </remarks>
-        public List<int> Parse(string[] input)
+        public List<ExpressionItem> Parse(string[] input)
         {
 
             throw new Exception();

@@ -14,10 +14,7 @@ namespace ConsoleApp
     {
         static void Main()
         {
-            MeasureSortingAlgorithms.Show();
-            //ss
-            //TextSorting.Show();
-            //puta madre
+            Console.ReadKey();
         }
     }
 }

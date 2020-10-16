@@ -12,8 +12,10 @@ namespace ClassLibrary.Parsers
         /// Parse from text to stack operations.
         /// </summary>
         /// <remarks>
-        /// Example: 3 1,56 1,cat convert to
-        /// (StackCommand.Top, null), (StackCommand.Push, 56) etc
+        /// Example: 
+        /// Input: "3 1,56 1,cat" 
+        /// Returns: { (StackCommand.Top, null), 
+        /// (StackCommand.Push, 56), (StackCommand.Push, "cat") }
         /// </remarks>
         public List<StackOperation> Parse(string[] input)
         {

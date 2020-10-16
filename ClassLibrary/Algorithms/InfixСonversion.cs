@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClassLibrary.Parsers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace ClassLibrary.Algorithms
 {
     public class InfixСonversion
     {
-        public void InfixToPostfix()
+        public void InfixToPostfix(List<ExpressionItem> infixExp)
         {
             //http://aliev.me/runestone/BasicDS/InfixPrefixandPostfixExpressions.html
         }
