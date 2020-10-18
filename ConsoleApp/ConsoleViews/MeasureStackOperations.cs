@@ -18,9 +18,10 @@ namespace ConsoleApp.ConsoleViews
         {
             string pathToFolder = Directory.GetCurrentDirectory()
                 .Replace(@"bin\Debug", "") + @"Files\";
+            Console.WriteLine("---------------------------------------------------");
             for (int i = 1; i < 6; i++)
             {
-                string[] text = File.ReadAllLines(pathToFolder + "input" + i + "txt");
+                string[] text = File.ReadAllLines(pathToFolder + "input" + i + ".txt");
                 StackOperationsParser sop = new StackOperationsParser();
                 List<StackOperation> operations = sop.Parse(text);
                 StackRealization<object> stack = new StackRealization<object>();
@@ -35,10 +36,11 @@ namespace ConsoleApp.ConsoleViews
                             Console.WriteLine("Время выполнения: " + executionTime);
                             break;
                         case StackCommand.Pop:
+                            var saveElement = stack.Top();
                             long executionTime2 = ActionTimeMeasurer.Measure
                                 (new Action(() => stack.Pop()));
                             Console.WriteLine("Команда: Pop()");
-                            Console.WriteLine("Возвращенное значeние: " + stack.Pop());
+                            Console.WriteLine("Возвращенное значeние: " + saveElement);
                             Console.WriteLine("Время выполнения: " + executionTime2);
                             break;
                         case StackCommand.Top:
@@ -62,12 +64,13 @@ namespace ConsoleApp.ConsoleViews
                             Console.WriteLine("Время выполнения: " + executionTime5);
                             break;
                         default:
-                            throw new Exception();
+                            throw new Exception();                          
                     }
                     string stackСondition = ObjectsToString(stack.Print());
                     Console.WriteLine("Состояние стека: " + stackСondition);
                     Console.WriteLine();
                 }
+                Console.WriteLine("---------------------------------------------------");
             }
         }
 

@@ -19,7 +19,33 @@ namespace ClassLibrary.Parsers
         /// </remarks>
         public List<StackOperation> Parse(string[] input)
         {
-            throw new Exception();
+            var list = new List<string>();
+            var res = new List<StackOperation>();
+            foreach (var e in input)
+                list.AddRange(e.Split());
+            foreach(var e in list)
+            {
+                switch(e[0])
+                {
+                    case '1':
+                        res.Add(new StackOperation(StackCommand.Push, e.Substring(2)));
+                        break;
+                    case '2':
+                        res.Add(new StackOperation(StackCommand.Pop));
+                        break;
+                    case '3':
+                        res.Add(new StackOperation(StackCommand.Top));
+                        break;
+                    case '4':
+                        res.Add(new StackOperation(StackCommand.isEmpty));
+                        break;
+                    case '5':
+                        res.Add(new StackOperation(StackCommand.Print));
+                        break;
+                    default: throw new Exception("Ты пиздабол");
+                }
+            }
+            return res;
         }
     }
 
