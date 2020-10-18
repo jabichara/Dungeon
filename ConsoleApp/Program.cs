@@ -16,6 +16,7 @@ namespace ConsoleApp
     {
         static void Main()
         {
+            Console.SetBufferSize(Console.BufferWidth, 32766);
             MeasureStackOperations.Show();
             Console.ReadKey();
         }
