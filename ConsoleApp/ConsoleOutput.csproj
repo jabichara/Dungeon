@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleViews\MeasureSortingAlgorithms.cs" />
+    <Compile Include="ConsoleViews\MeasureStackOperations.cs" />
     <Compile Include="ConsoleViews\TextSorting.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -52,9 +53,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary\ClassLibrary.csproj">
+    <ProjectReference Include="..\ClassLibrary\Logic.csproj">
       <Project>{f82a3ea7-18b2-48a0-a48c-9a3cf1800a33}</Project>
-      <Name>ClassLibrary</Name>
+      <Name>Logic</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

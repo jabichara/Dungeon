@@ -60,13 +60,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary\ClassLibrary.csproj">
+    <ProjectReference Include="..\ClassLibrary\Logic.csproj">
       <Project>{f82a3ea7-18b2-48a0-a48c-9a3cf1800a33}</Project>
-      <Name>ClassLibrary</Name>
+      <Name>Logic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ConsoleApp\ConsoleApp.csproj">
+    <ProjectReference Include="..\ConsoleApp\ConsoleOutput.csproj">
       <Project>{d58c592e-77fd-4be7-96f7-91e776686512}</Project>
-      <Name>ConsoleApp</Name>
+      <Name>ConsoleOutput</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
