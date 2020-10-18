@@ -63,7 +63,7 @@
     <Content Include="Files\input4.txt" />
     <Content Include="Files\input3.txt" />
     <Content Include="Files\input2.txt" />
-    <Content Include="Files\input.txt" />
+    <Content Include="Files\input1.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

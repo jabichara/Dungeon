@@ -16,7 +16,7 @@ namespace ConsoleApp
     {
         static void Main()
         {
-            //MeasureStackOperations.Show();
+            MeasureStackOperations.Show();
             Console.ReadKey();
         }
     }
