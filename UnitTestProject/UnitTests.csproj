@@ -53,6 +53,7 @@
     <Compile Include="Tests\InfixConvParserTests.cs" />
     <Compile Include="Tests\MeasurerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\Random.cs" />
     <Compile Include="Tests\SortersTests.cs" />
     <Compile Include="Tests\StackOpParserTests.cs" />
     <Compile Include="Tests\StackTests.cs" />
