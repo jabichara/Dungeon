@@ -28,12 +28,11 @@ namespace ConsoleApp.ConsoleViews
                 StackOperationsParser sop = new StackOperationsParser();
                 List<StackOperation> operations = sop.Parse(text);
                 Console.WriteLine("input" + i + ".txt");
-                Console.WriteLine("Время на считывание - "+ActionTimeMeasurer.Measure
+                Console.WriteLine("Время на считывание - " + ActionTimeMeasurer.Measure
                     (new Action(() => sop.Parse(text))));
                 Console.WriteLine();
                 StackRealization<object> stack = new StackRealization<object>();
                 var watch = new Stopwatch();
-                watch.Start();
                 foreach (StackOperation operation in operations)
                 {
                     switch (operation.Command)
@@ -89,7 +88,7 @@ namespace ConsoleApp.ConsoleViews
                     Console.WriteLine("Состояние стека: " + stackСondition);
                     Console.WriteLine();
                 }
-                Console.WriteLine(watch.ElapsedMilliseconds);
+                Console.WriteLine("Время на выполнение - " + watch.ElapsedMilliseconds);
                 Console.WriteLine("---------------------------------------------------");
             }
         }
