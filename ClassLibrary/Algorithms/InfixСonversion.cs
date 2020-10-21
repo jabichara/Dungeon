@@ -9,7 +9,7 @@ namespace ClassLibrary.Algorithms
 {
     public class InfixСonversion
     {
-        public Queue<ExpressionItem> InfixToPostfix(List<ExpressionItem> infixExp)
+        public List<ExpressionItem> InfixToPostfix(List<ExpressionItem> infixExp)
         {
             //http://aliev.me/runestone/BasicDS/InfixPrefixandPostfixExpressions.html
             //https://habr.com/ru/post/489744/
@@ -62,12 +62,68 @@ namespace ClassLibrary.Algorithms
             {
                 queue.Enqueue(stack.Pop());
             }
-            return queue;
+            return queue.ToList();
         }
 
-        public void CalculateValue()
+        public double CalculateValue(List<ExpressionItem> infixExp)
         {
+            List<ExpressionItem> xuitoe = InfixToPostfix(infixExp);
+            Stack<ExpressionItem> stack = new Stack<ExpressionItem>();
+            foreach(var e in xuitoe)
+            {
+                switch (e.Type)
+                {
+                    case ItemType.Number:
+                        stack.Push(e);
+                        break;
+                    case ItemType.Operation:
+                        if (GetPriority(e) > 0)
+                        {
+                            double numberFirst = (double)stack.Pop().NumberValue;
+                            double numberSecond = (double)stack.Pop().NumberValue;
+                            switch (e.OperationType)
+                            {
+                                case Operation.Plus:
+                                    stack.Push(new ExpressionItem(ItemType.Number, numberFirst + numberSecond));
+                                    break;
+                                case Operation.Minus:
+                                    stack.Push(new ExpressionItem(ItemType.Number, numberFirst - numberSecond));
+                                    break;
+                                case Operation.Multiply:
+                                    stack.Push(new ExpressionItem(ItemType.Number, numberFirst * numberSecond));
+                                    break;
+                                case Operation.Divide:
+                                    stack.Push(new ExpressionItem(ItemType.Number, numberFirst / numberSecond));
+                                    break;
+                                case Operation.Power:
+                                    stack.Push(new ExpressionItem(ItemType.Number, Math.Pow(numberFirst, numberSecond)));
+                                    break;
+                            }                         
+                        }
+                        else
+                        {
+                            double number = (double)stack.Pop().NumberValue;
+                            switch (e.OperationType)
+                            {
+                                case Operation.Sine:
+                                    stack.Push(new ExpressionItem(ItemType.Number, Math.Sin((number * Math.PI) / 180)));
+                                    break;
+                                case Operation.Cosine:
+                                    stack.Push(new ExpressionItem(ItemType.Number, Math.Cos((number * Math.PI) / 180)));
+                                    break;
+                                case Operation.Logarithm:
+                                    stack.Push(new ExpressionItem(ItemType.Number, Math.Log(number)));
+                                    break;
+                                case Operation.SquareRoot:
+                                    stack.Push(new ExpressionItem(ItemType.Number, Math.Sqrt(number)));
+                                    break;
+                            }
 
+                        }
+                        break;
+                }
+            }
+            return (double)stack.Pop().NumberValue;
         }
 
         int GetPriority(ExpressionItem ei)
