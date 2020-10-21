@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleViews\CalculatingInfixToPostfix.cs" />
     <Compile Include="ConsoleViews\MeasureSortingAlgorithms.cs" />
     <Compile Include="ConsoleViews\MeasureStackOperations.cs" />
     <Compile Include="ConsoleViews\TextSorting.cs" />
@@ -59,6 +60,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="FilesSecond\input.txt" />
     <Content Include="Files\input5.txt" />
     <Content Include="Files\input4.txt" />
     <Content Include="Files\input3.txt" />
