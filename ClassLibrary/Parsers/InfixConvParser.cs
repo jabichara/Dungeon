@@ -138,9 +138,9 @@ namespace ClassLibrary.Parsers
     public class ExpressionItem
     {
         ItemType Type { get; set; }
-        double NumberValue { get; set; }
-        Operation OperationType { get; set; }
-        Bracket BraketType { get; set; }
+        double? NumberValue { get; set; } = null;
+        Operation? OperationType { get; set; } = null;
+        Bracket? BraketType { get; set; } = null;
 
         public ExpressionItem(ItemType type, Operation operation)
         {
