@@ -35,22 +35,51 @@ namespace UnitTestProject.Tests
             };
             ei = new List<ExpressionItem>
             {
-                //"cos(130+140/sqrt(13^2))",
+                //cos(a+b/sqrt(d^2))
+                //a = 45
+                //b = 450
+                //d = 10
                 new ExpressionItem(ItemType.Operation, Operation.Cosine),
                 new ExpressionItem(ItemType.Bracket, Bracket.LeftBracket),
-                new ExpressionItem(ItemType.Number, 130),
+                new ExpressionItem(ItemType.Number, 45),
                 new ExpressionItem(ItemType.Operation, Operation.Plus),
-                new ExpressionItem(ItemType.Number, 140),
+                new ExpressionItem(ItemType.Number, 450),
                 new ExpressionItem(ItemType.Operation, Operation.Divide),
                 new ExpressionItem(ItemType.Operation, Operation.SquareRoot),
                 new ExpressionItem(ItemType.Bracket, Bracket.LeftBracket),
-                new ExpressionItem(ItemType.Number, 13),
+                new ExpressionItem(ItemType.Number, 10),
                 new ExpressionItem(ItemType.Operation, Operation.Power),
                 new ExpressionItem(ItemType.Number, 2),
                 new ExpressionItem(ItemType.Bracket, Bracket.RightBracket),
                 new ExpressionItem(ItemType.Bracket, Bracket.RightBracket),
             };
-            Queue<ExpressionItem> qe = ic.InfixToPostfix(ei);
+            List<ExpressionItem> qe = ic.InfixToPostfix(ei);
+            Assert.AreEqual(1, 1);
+        }
+
+        [TestMethod]
+        public void Test2()
+        {
+            InfixСonversion ic = new InfixСonversion();
+            List<ExpressionItem> ei = new List<ExpressionItem>
+            {
+                //"cos(130+140/sqrt(13^2))",
+                new ExpressionItem(ItemType.Operation, Operation.Cosine),
+                new ExpressionItem(ItemType.Bracket, Bracket.LeftBracket),
+                new ExpressionItem(ItemType.Number, 45),
+                new ExpressionItem(ItemType.Operation, Operation.Plus),
+                new ExpressionItem(ItemType.Number, 450),
+                new ExpressionItem(ItemType.Operation, Operation.Divide),
+                new ExpressionItem(ItemType.Operation, Operation.SquareRoot),
+                new ExpressionItem(ItemType.Bracket, Bracket.LeftBracket),
+                new ExpressionItem(ItemType.Number, 10),
+                new ExpressionItem(ItemType.Operation, Operation.Power),
+                new ExpressionItem(ItemType.Number, 2),
+                new ExpressionItem(ItemType.Bracket, Bracket.RightBracket),
+                new ExpressionItem(ItemType.Bracket, Bracket.RightBracket),
+            };
+            ei = ic.InfixToPostfix(ei);
+            double calc = ic.CalculateValue(ei);
             Assert.AreEqual(1, 1);
         }
     }

@@ -65,23 +65,23 @@ namespace ClassLibrary.Algorithms
             return queue.ToList();
         }
 
-        public double CalculateValue(List<ExpressionItem> infixExp)
+        public double CalculateValue(List<ExpressionItem> postfixExp)
         {
-            List<ExpressionItem> xuitoe = InfixToPostfix(infixExp);
+            //List<ExpressionItem> xu = InfixToPostfix(infixExp);
             Stack<ExpressionItem> stack = new Stack<ExpressionItem>();
-            foreach(var e in xuitoe)
+            foreach(var item in postfixExp)
             {
-                switch (e.Type)
+                switch (item.Type)
                 {
                     case ItemType.Number:
-                        stack.Push(e);
+                        stack.Push(item);
                         break;
                     case ItemType.Operation:
-                        if (GetPriority(e) > 0)
+                        if (GetPriority(item) > 0)
                         {
-                            double numberFirst = (double)stack.Pop().NumberValue;
                             double numberSecond = (double)stack.Pop().NumberValue;
-                            switch (e.OperationType)
+                            double numberFirst = (double)stack.Pop().NumberValue;
+                            switch (item.OperationType)
                             {
                                 case Operation.Plus:
                                     stack.Push(new ExpressionItem(ItemType.Number, numberFirst + numberSecond));
@@ -103,7 +103,7 @@ namespace ClassLibrary.Algorithms
                         else
                         {
                             double number = (double)stack.Pop().NumberValue;
-                            switch (e.OperationType)
+                            switch (item.OperationType)
                             {
                                 case Operation.Sine:
                                     stack.Push(new ExpressionItem(ItemType.Number, Math.Sin((number * Math.PI) / 180)));
@@ -123,7 +123,7 @@ namespace ClassLibrary.Algorithms
                         break;
                 }
             }
-            return (double)stack.Pop().NumberValue;
+            return Math.Round((double)stack.Pop().NumberValue);
         }
 
         int GetPriority(ExpressionItem ei)

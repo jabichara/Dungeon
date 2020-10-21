@@ -9,6 +9,7 @@ using ClassLibrary.Generators;
 using ConsoleApp.ConsoleViews;
 using ClassLibrary.Parsers;
 using ClassLibrary.Structures;
+using System.Net;
 
 namespace ConsoleApp
 {

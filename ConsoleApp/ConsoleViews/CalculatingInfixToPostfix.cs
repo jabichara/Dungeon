@@ -19,8 +19,8 @@ namespace ConsoleApp.ConsoleViews
             var parser = new InfixConvParser();
             var parseText = parser.Parse(text);
             var infixAlg = new InfixСonversion();
-            var answer = infixAlg.CalculateValue(parseText);
             var postfix = infixAlg.InfixToPostfix(parseText);
+            var answer = infixAlg.CalculateValue(postfix);
             var sb = new StringBuilder();
             foreach (var e in postfix)
             {
@@ -42,7 +42,7 @@ namespace ConsoleApp.ConsoleViews
                                 sb.Append("cos");
                                 break;
                             case Operation.Divide:
-                                sb.Append("/");
+                                sb.Append(":");
                                 break;
                             case Operation.Logarithm:
                                 sb.Append("lg");
