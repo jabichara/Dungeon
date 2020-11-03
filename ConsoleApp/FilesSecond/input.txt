@@ -1,4 +1,4 @@
-﻿cos(4*(a+b):sqrt(d^2))
+﻿cos(4*(a+d):sqrt(d^2))
 a=450
 b=450
 d=10

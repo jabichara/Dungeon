@@ -69,7 +69,7 @@ namespace ClassLibrary.Parsers
                         }
                         else
                         {
-                            AddValue('l', input, output);
+                            AddValue('c', input, output);
                         }
                         break;
                     case 's':

@@ -25,9 +25,9 @@ namespace UnitTestProject.Tests
             InfixConvParser icp = new InfixConvParser();
             string[] input = new string[] 
             { 
-                "a+b-100",
+                "c-100",
                 "a=12",
-                "b=13"
+                "c=13"
             };
             List<ExpressionItem> expected = new List<ExpressionItem>
             {
