@@ -21,9 +21,7 @@ namespace ConsoleApp
             //MeasureStackOperations.Show();
             //CalculatingInfixToPostfix.Show();
             //Console.ReadKey();
-            ViewTree.ShowTree();
-            Console.WriteLine();
-            Console.WriteLine("Minimum - " + tree.Root.Value);
+            ViewTree.Show();
             Console.ReadLine();
         }
     }

@@ -75,7 +75,7 @@ namespace ClassLibrary.Structures
             }
         }
         
-        public List<List<Node>> DisplayTree()
+        public List<List<Node>> GetTree()
         {
             bool levelIsNotNull = true;
             var lists = new List<List<Node>>();
