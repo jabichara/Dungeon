@@ -1,22 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ClassLibrary.Structures
 {
     public class RBTree
     {
-        /// <summary>
-        /// Root node of the tree (both reference & pointer)
-        /// </summary>
+        
         public Node Root;
-        /// <summary>
-        /// New instance of a Red-Black tree object
-        /// </summary>
+        
         public RBTree() { }
-        /// <summary>
-        /// Left Rotate
-        /// </summary>
-        /// <param name="X"></param>
-        /// <returns>void</returns>
+        
         public void LeftRotate(Node X)
         {
             Node Y = X.Right; // set Y
@@ -48,11 +41,7 @@ namespace ClassLibrary.Structures
             }
 
         }
-        /// <summary>
-        /// Rotate Right
-        /// </summary>
-        /// <param name="Y"></param>
-        /// <returns>void</returns>
+        
         public void RightRotate(Node Y)
         {
             // right rotate is simply mirror code from left rotate
@@ -85,25 +74,37 @@ namespace ClassLibrary.Structures
                 Y.Parent = X;
             }
         }
-        /// <summary>
-        /// Display Tree
-        /// </summary>
-        public void DisplayTree()
+        
+        public List<List<Node>> DisplayTree()
         {
+            bool levelIsNotNull = true;
+            var lists = new List<List<Node>>();
             if (Root == null)
             {
-                Console.WriteLine("Nothing in the tree!");
-                return;
+                Console.WriteLine("XUITA");
             }
-            if (Root != null)
+            var level = new List<Node> { Root };
+            while (levelIsNotNull)
             {
-                InOrderDisplay(Root);
+                var nextLevel = new List<Node>();
+                levelIsNotNull = false;
+                foreach (var node in level)
+                {
+                    if (node != null)
+                    {
+                        if (node.Left != null || node.Right != null)
+                            levelIsNotNull = true;
+                        nextLevel.Add(node.Left);
+                        nextLevel.Add(node.Right);
+                    }
+                }
+                lists.Add(level);
+                level = nextLevel;
             }
+            
+            return lists;
         }
-        /// <summary>
-        /// Find item in the tree
-        /// </summary>
-        /// <param name="key"></param>
+     
         public Node Find(int key)
         {
             bool isFound = false;
@@ -140,11 +141,8 @@ namespace ClassLibrary.Structures
                 return null;
             }
         }
-        /// <summary>
-        /// Insert a new object into the RB Tree
-        /// </summary>
-        /// <param name="item"></param>
-        public void Insert(int item)
+
+        public void Add(int item)
         {
             Node newItem = new Node(item);
             if (Root == null)
@@ -182,42 +180,40 @@ namespace ClassLibrary.Structures
             }
             newItem.Left = null;
             newItem.Right = null;
-            newItem.Colour = RBTreeColour.Red;//colour the new node red
-            InsertFixUp(newItem);//call method to check for violations and fix
+            newItem.Colour = RBTreeColour.Red;
         }
-        public void InOrderDisplay(Node current)
-        {
-            if (current != null)
-            {
-                InOrderDisplay(current.Left);
-                Console.Write("({0}) ", current.Value);
-                InOrderDisplay(current.Right);
-            }
-        }
+            //InsertFixUp(newItem);
+        //}
+        //public void InOrderDisplay(Node current)
+        //{
+        //    if (current != null)
+        //    {
+        //        InOrderDisplay(current.Left);
+        //        Console.Write("({0}) ", current.Value);
+        //        InOrderDisplay(current.Right);
+        //    }
+        //}
         public void InsertFixUp(Node item)
         {
-            //Checks Red-Black Tree properties
             while (item != Root && item.Parent.Colour == RBTreeColour.Red)
             {
-                /*We have a violation*/
                 if (item.Parent == item.Parent.Parent.Left)
                 {
                     Node Y = item.Parent.Parent.Right;
-                    if (Y != null && Y.Colour == RBTreeColour.Red)//Case 1: uncle is red
+                    if (Y != null && Y.Colour == RBTreeColour.Red)
                     {
                         item.Parent.Colour = RBTreeColour.Black;
                         Y.Colour = RBTreeColour.Black;
                         item.Parent.Parent.Colour = RBTreeColour.Red;
                         item = item.Parent.Parent;
                     }
-                    else //Case 2: uncle is black
+                    else 
                     {
                         if (item == item.Parent.Right)
                         {
                             item = item.Parent;
                             LeftRotate(item);
                         }
-                        //Case 3: recolour & rotate
                         item.Parent.Colour = RBTreeColour.Black;
                         item.Parent.Parent.Colour = RBTreeColour.Red;
                         RightRotate(item.Parent.Parent);
@@ -226,25 +222,23 @@ namespace ClassLibrary.Structures
                 }
                 else
                 {
-                    //mirror image of code above
                     Node X = null;
 
                     X = item.Parent.Parent.Left;
-                    if (X != null && X.Colour == RBTreeColour.Black)//Case 1
+                    if (X != null && X.Colour == RBTreeColour.Black)
                     {
                         item.Parent.Colour = RBTreeColour.Red;
                         X.Colour = RBTreeColour.Red;
                         item.Parent.Parent.Colour = RBTreeColour.Black;
                         item = item.Parent.Parent;
                     }
-                    else //Case 2
+                    else 
                     {
                         if (item == item.Parent.Left)
                         {
                             item = item.Parent;
                             RightRotate(item);
                         }
-                        //Case 3: recolour & rotate
                         item.Parent.Colour = RBTreeColour.Black;
                         item.Parent.Parent.Colour = RBTreeColour.Red;
                         LeftRotate(item.Parent.Parent);
@@ -252,16 +246,12 @@ namespace ClassLibrary.Structures
                     }
 
                 }
-                Root.Colour = RBTreeColour.Black;//re-colour the root black as necessary
+                Root.Colour = RBTreeColour.Black;
             }
         }
-        /// <summary>
-        /// Deletes a specified value from the tree
-        /// </summary>
-        /// <param name="item"></param>
+        
         public void Delete(int key)
         {
-            //first find the node in the tree to delete and assign to item pointer/reference
             Node item = Find(key);
             Node X = null;
             Node Y = null;
@@ -312,11 +302,7 @@ namespace ClassLibrary.Structures
                 DeleteFixUp(X);
             }
 
-        }
-        /// <summary>
-        /// Checks the tree for any violations after deletion and performs a fix
-        /// </summary>
-        /// <param name="X"></param>
+        }        
         public void DeleteFixUp(Node X)
         {
 
@@ -413,14 +399,7 @@ namespace ClassLibrary.Structures
         }
     }
 
-    /// <summary>
-    /// Object of type Node contains 4 properties
-    /// Colour
-    /// Left
-    /// Right
-    /// Parent
-    /// Data
-    /// </summary>
+    
     public class Node
     {
         public RBTreeColour Colour;

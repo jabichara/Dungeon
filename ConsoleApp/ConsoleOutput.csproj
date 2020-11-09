@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleViews\CalculatingInfixToPostfix.cs" />
+    <Compile Include="ConsoleViews\ViewTree.cs" />
     <Compile Include="ConsoleViews\MeasureSortingAlgorithms.cs" />
     <Compile Include="ConsoleViews\MeasureStackOperations.cs" />
     <Compile Include="ConsoleViews\TextSorting.cs" />
