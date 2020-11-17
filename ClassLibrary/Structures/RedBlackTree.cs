@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace ClassLibrary.Structures
 {
@@ -75,18 +76,18 @@ namespace ClassLibrary.Structures
             }
         }
         
-        public List<List<Node>> GetTree()
+        public ObservableCollection<ObservableCollection<Node>> GetTree()
         {
             bool levelIsNotNull = true;
-            var lists = new List<List<Node>>();
+            var lists = new ObservableCollection<ObservableCollection<Node>>();
             if (Root == null)
             {
-                Console.WriteLine("XUITA");
+                Console.WriteLine("ZDOROVA YA BIK ( XYITA )");
             }
-            var level = new List<Node> { Root };
+            var level = new ObservableCollection<Node> { Root };
             while (levelIsNotNull)
             {
-                var nextLevel = new List<Node>();
+                var nextLevel = new ObservableCollection<Node>();
                 levelIsNotNull = false;
                 foreach (var node in level)
                 {
@@ -96,6 +97,11 @@ namespace ClassLibrary.Structures
                             levelIsNotNull = true;
                         nextLevel.Add(node.Left);
                         nextLevel.Add(node.Right);
+                    }
+                    else
+                    {
+                        nextLevel.Add(null);
+                        nextLevel.Add(null);
                     }
                 }
                 lists.Add(level);
@@ -368,6 +374,7 @@ namespace ClassLibrary.Structures
             if (X != null)
                 X.Colour = RBTreeColour.Black;
         }
+
         public Node Minimum(Node X)
         {
             while (X.Left.Left != null)
@@ -380,6 +387,7 @@ namespace ClassLibrary.Structures
             }
             return X;
         }
+
         public Node TreeSuccessor(Node X)
         {
             if (X.Left != null)
