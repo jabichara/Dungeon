@@ -7,13 +7,15 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 
 namespace RedBlackTreeView
 {
     public class VM : BindableBase
     {
-        private RBTree Tree { get; set; }
+        //private RBTree Tree { get; set; }
+        public Set<int> Tree { get; set; }
         public ObservableCollection<TreeLevel> Items { get; set; }
         public DelegateCommand Add { get; set; }
         public int AddValue { get; set; }
@@ -33,53 +35,107 @@ namespace RedBlackTreeView
             });
             Delete = new DelegateCommand(() =>
             {
-                Tree.Delete(DeleteValue);
+                Tree.Remove(DeleteValue);
                 UpdateItems();
                 RaisePropertyChanged("Items");
             });
             Find = new DelegateCommand(() =>
             {
-                Tree.Find(FindValue);
+                SetNode<int> sni = Tree.Search(FindValue);
+                string message = "Color of " + FindValue + " is " + sni.Color.ToString();
+                string title = "Information";
+                MessageBox.Show(message, title);
             });
             Min = new DelegateCommand(() =>
             {
-
+                int min = int.MaxValue;
+                SetNode<int> sni = Tree.Root;
+                while (sni != null)
+                {
+                    min = sni.Data;
+                    sni = (SetNode<int>)sni.Left;
+                }
+                string message = "Min value in tree is " + min;
+                string title = "Information";
+                MessageBox.Show(message, title);
             });
             Max = new DelegateCommand(() =>
             {
-
+                int max = int.MinValue;
+                SetNode<int> sni = Tree.Root;
+                while (sni != null)
+                {
+                    max = sni.Data;
+                    sni = (SetNode<int>)sni.Right;
+                }
+                string message = "Max value in tree is " + max;
+                string title = "Information";
+                MessageBox.Show(message, title);
             });
-            Tree = new RBTree();
-            Tree.Add(5);
-            Tree.Add(3);
-            Tree.Add(6);
-            Tree.Add(7);
-            Tree.Add(2);
-            Tree.Add(4);
-            Tree.Add(5);
+            Tree = new Set<int>();
+            List<int> list = new List<int>();
             Random rnd = new Random();
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 25; i++)
             {
-                Tree.Add(rnd.Next(0, 10));
+                int a = rnd.Next(1, 100);
+                if (!list.Contains(a))
+                {
+                    list.Add(a);
+                    Tree.Add(a);
+                }
             }
             UpdateItems();
         }
 
         public void UpdateItems()
         {
-            var e = Tree.GetTree();
+            var e = GetTree();
             Items = new ObservableCollection<TreeLevel>();
             foreach (var ei in e)
             {
                 Items.Add(new TreeLevel(ei));
             }
         }
+
+        public ObservableCollection<ObservableCollection<SetNode<int>>> GetTree()
+        {
+            bool levelIsNotNull = true;
+            var lists = new ObservableCollection<ObservableCollection<SetNode<int>>>();
+            if (Tree.Root == null)
+            {
+                return new ObservableCollection<ObservableCollection<SetNode<int>>>();
+            }
+            var level = new ObservableCollection<SetNode<int>> { Tree.Root };
+            while (levelIsNotNull)
+            {
+                var nextLevel = new ObservableCollection<SetNode<int>>();
+                levelIsNotNull = false;
+                foreach (var node in level)
+                {
+                    if (node != null)
+                    {
+                        if (node.Left != null || node.Right != null)
+                            levelIsNotNull = true;
+                        nextLevel.Add((SetNode<int>)node.Left);
+                        nextLevel.Add((SetNode<int>)node.Right);
+                    }
+                    else
+                    {
+                        nextLevel.Add(null);
+                        nextLevel.Add(null);
+                    }
+                }
+                lists.Add(level);
+                level = nextLevel;
+            }
+            return lists;
+        }
     }
     public class TreeLevel
     {
         public int Level { get; set; }
         public ObservableCollection<TreeLevelItem> Items { get; set; }
-        public TreeLevel(ObservableCollection<Node> e)
+        public TreeLevel(ObservableCollection<SetNode<int>> e)
         {
             Items = new ObservableCollection<TreeLevelItem>();
             foreach (var node in e)
@@ -93,16 +149,16 @@ namespace RedBlackTreeView
         public string Value { get; set; }
         public SolidColorBrush Colour { get; set; }
         public bool Visibility { get; set; }
-        public TreeLevelItem(Node n)
+        public TreeLevelItem(SetNode<int> n)
         {
             if (n != null)
             {
-                Value = n.Value.ToString();
-                if (n.Colour == RBTreeColour.Black)
+                Value = n.Data.ToString();
+                if (n.Color == TriState.Black || n.Color == TriState.Header)
                 {
                     Colour = new SolidColorBrush(Colors.Black);
                 }
-                else if (n.Colour == RBTreeColour.Red)
+                else if (n.Color == TriState.Red)
                 {
                     Colour = new SolidColorBrush(Colors.OrangeRed);
                 }

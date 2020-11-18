@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 
 public enum Direction { FromLeft, FromRight };
-
 public enum TriState
 {
     Header,
     Red,
     Black
 }
-
 public class Node
 {
     public Node Left;
@@ -18,10 +16,13 @@ public class Node
     public TriState Color;
 
     public bool IsHeader
-    { get { return Color == TriState.Header; } }
+    {
+        get
+        {
+            return Color == TriState.Header;
+        }
+    }
 }
-
-
 public class SetNode<T> : Node
 {
     public T Data;
@@ -42,7 +43,6 @@ public class SetNode<T> : Node
         Data = t;
     }
 }
-
 public class Utility
 {
     public static ulong Depth(Node Root)
@@ -372,14 +372,28 @@ public class Utility
         }
     }
 }
-
 public struct SetEntry<T> : IEnumerator<T>
 {
-    public SetEntry(SetNode<T> n) { Node = n; }
+    public SetEntry(SetNode<T> n)
+    {
+        Node = n;
+    }
 
-    public T Value { get { return Node.Data; } }
+    public T Value
+    {
+        get
+        {
+            return Node.Data;
+        }
+    }
 
-    public bool IsEnd { get { return Node.IsHeader; } }
+    public bool IsEnd
+    {
+        get
+        {
+            return Node.IsHeader;
+        }
+    }
 
     public bool MoveNext()
     {
@@ -398,76 +412,124 @@ public struct SetEntry<T> : IEnumerator<T>
         while (!MoveNext()) ;
     }
 
-    object System.Collections.IEnumerator.Current { get { return Node.Data; } }
+    object System.Collections.IEnumerator.Current
+    {
+        get
+        {
+            return Node.Data;
+        }
+    }
 
-    T IEnumerator<T>.Current { get { return Node.Data; } }
+    T IEnumerator<T>.Current
+    {
+        get
+        {
+            return Node.Data;
+        }
+    }
 
-    public static bool operator ==(SetEntry<T> x, SetEntry<T> y) { return x.Node == y.Node; }
-    public static bool operator !=(SetEntry<T> x, SetEntry<T> y) { return x.Node != y.Node; }
+    public static bool operator ==(SetEntry<T> x, SetEntry<T> y)
+    {
+        return x.Node == y.Node;
+    }
+    public static bool operator !=(SetEntry<T> x, SetEntry<T> y)
+    {
+        return x.Node != y.Node;
+    }
 
+    public override string ToString()
+    {
+        return Value.ToString();
+    }
 
-    public override string ToString() { return Value.ToString(); }
+    public void Dispose()
+    {
 
-    public void Dispose() { }
+    }
 
     public SetNode<T> Node;
 }
-
-
 public class Set<T> : IEnumerable<T>
 {
     IComparer<T> Comparer;
     SetNode<T> Header;
     ulong Nodes;
-
     //*** Constructors/Destructor ***
-
     public Set()
     {
         Comparer = Comparer<T>.Default;
         Header = new SetNode<T>();
         Nodes = 0;
     }
-
     public Set(IComparer<T> c)
     {
         Comparer = c;
         Header = new SetNode<T>();
         Nodes = 0;
     }
-
     //*** Properties ***
-
-    SetNode<T> Root
+    public SetNode<T> Root
     {
-        get { return (SetNode<T>)Header.Parent; }
-        set { Header.Parent = value; }
+        get
+        {
+            return (SetNode<T>)Header.Parent;
+        }
+        set
+        {
+            Header.Parent = value;
+        }
     }
-
     SetNode<T> LeftMost
     {
-        get { return (SetNode<T>)Header.Left; }
-        set { Header.Left = value; }
+        get
+        {
+            return (SetNode<T>)Header.Left;
+        }
+        set
+        {
+            Header.Left = value;
+        }
     }
-
     SetNode<T> RightMost
     {
-        get { return (SetNode<T>)Header.Right; }
-        set { Header.Right = value; }
+        get
+        {
+            return (SetNode<T>)Header.Right;
+        }
+        set
+        {
+            Header.Right = value;
+        }
     }
-
     public SetEntry<T> Begin
-    { get { return new SetEntry<T>((SetNode<T>)Header.Left); } }
-
+    {
+        get
+        {
+            return new SetEntry<T>((SetNode<T>)Header.Left);
+        }
+    }
     public SetEntry<T> End
-    { get { return new SetEntry<T>(Header); } }
-
-    public ulong Length { get { return Nodes; } }
-
-    public ulong Depth { get { return Utility.Depth(Root); } }
-
+    {
+        get
+        {
+            return new SetEntry<T>(Header);
+        }
+    }
+    public ulong Length
+    {
+        get
+        {
+            return Nodes;
+        }
+    }
+    public ulong Depth
+    {
+        get
+        {
+            return Utility.Depth(Root);
+        }
+    }
     //*** Indexer ***
-
     public bool this[T Key]
     {
         get
@@ -476,9 +538,7 @@ public class Set<T> : IEnumerable<T>
             if (Node == null) return false; else return true;
         }
     }
-
     //*** Methods ***
-
     SetNode<T> Add(T Key,
                    SetNode<T> y,
                    Direction From)
@@ -507,7 +567,6 @@ public class Set<T> : IEnumerable<T>
         Utility.Rebalance(z, ref Header.Parent);
         return z;
     }
-
     public SetNode<T> Add(T Key)
     {
         SetNode<T> y = Header;
@@ -529,13 +588,14 @@ public class Set<T> : IEnumerable<T>
         Direction From = c < 0 ? Direction.FromLeft : Direction.FromRight;
         return Add(Key, y, From);
     }
-
     System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-    { return new SetEntry<T>(Header); }
-
+    {
+        return new SetEntry<T>(Header);
+    }
     IEnumerator<T> IEnumerable<T>.GetEnumerator()
-    { return new SetEntry<T>(Header); }
-
+    {
+        return new SetEntry<T>(Header);
+    }
     public void Remove(T Key)
     {
         SetNode<T> root = Root;
@@ -561,7 +621,6 @@ public class Set<T> : IEnumerable<T>
             }
         }
     }
-
     public SetNode<T> Search(T Key)
     {
         if (Root == null)
@@ -585,7 +644,6 @@ public class Set<T> : IEnumerable<T>
             return search;
         }
     }
-
     public override string ToString()
     {
         string StringOut = "{";
@@ -605,7 +663,6 @@ public class Set<T> : IEnumerable<T>
         StringOut = StringOut + "}";
         return StringOut;
     }
-
     public void Validate()
     {
         if (Nodes == 0 || Root == null)
@@ -684,57 +741,48 @@ public class Program
             Console.WriteLine("{0} is not in {1}", "S" + 3.ToString(), S);
     }
 }
-
-
 public class EntryNotFoundException : Exception
 {
     static String message = "The requested entry could not be located in the specified collection.";
 
     public EntryNotFoundException() : base(message) { }
 }
-
 public class InvalidEndItemException : Exception
 {
     static String message = "The validation routines detected that the end item of a tree is invalid.";
 
     public InvalidEndItemException() : base(message) { }
 }
-
 public class InvalidEmptySetException : Exception
 {
     static String message = "The validation routines detected that an empty tree is invalid.";
 
     public InvalidEmptySetException() : base(message) { }
 }
-
 public class OutOfKeyOrderException : Exception
 {
     static String message = "A trees was found to be out of Key order.";
 
     public OutOfKeyOrderException() : base(message) { }
 }
-
 public class SetInvalidParentException : Exception
 {
     static String message = "The validation routines detected that the Parent structure of a tree is invalid.";
 
     public SetInvalidParentException() : base(message) { }
 }
-
 public class InvalidBlackCountException : Exception
 {
     static String message = "An invalid black node count was encountered.";
 
     public InvalidBlackCountException() : base(message) { }
 }
-
 public class InvalidNodeColorException : Exception
 {
     static String message = "The color of a node is invalid.";
 
     public InvalidNodeColorException() : base(message) { }
 }
-
 public class EntryAlreadyExistsException : Exception
 {
     static String message = "The set entry already exists.";
