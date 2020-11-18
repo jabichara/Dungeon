@@ -20,8 +20,8 @@ namespace ConsoleApp
             //Console.SetBufferSize(Console.BufferWidth, 32766);
             //MeasureStackOperations.Show();
             //CalculatingInfixToPostfix.Show();
-            ViewTree.ShowTree();
-            //Console.WriteLine();
+            //Console.ReadKey();
+            ViewTree.Show();
             Console.ReadLine();
         }
     }

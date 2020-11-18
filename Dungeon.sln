@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTestProjec
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logic", "ClassLibrary\Logic.csproj", "{F82A3EA7-18B2-48A0-A48C-9A3CF1800A33}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedBlackTreeView", "RedBlackTreeView\RedBlackTreeView.csproj", "{9128DA41-C8D0-4A81-A281-DAF89728CA7F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{F82A3EA7-18B2-48A0-A48C-9A3CF1800A33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F82A3EA7-18B2-48A0-A48C-9A3CF1800A33}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F82A3EA7-18B2-48A0-A48C-9A3CF1800A33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9128DA41-C8D0-4A81-A281-DAF89728CA7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9128DA41-C8D0-4A81-A281-DAF89728CA7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9128DA41-C8D0-4A81-A281-DAF89728CA7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9128DA41-C8D0-4A81-A281-DAF89728CA7F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

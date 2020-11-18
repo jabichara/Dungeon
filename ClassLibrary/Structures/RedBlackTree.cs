@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace ClassLibrary.Structures
 {
     public class RBTree
     {
-        
         public Node Root;
-        
         public RBTree() { }
-        
         public void LeftRotate(Node X)
         {
             Node Y = X.Right; // set Y
@@ -41,7 +39,6 @@ namespace ClassLibrary.Structures
             }
 
         }
-        
         public void RightRotate(Node Y)
         {
             // right rotate is simply mirror code from left rotate
@@ -74,19 +71,18 @@ namespace ClassLibrary.Structures
                 Y.Parent = X;
             }
         }
-        
-        public List<List<Node>> DisplayTree()
+        public ObservableCollection<ObservableCollection<Node>> GetTree()
         {
             bool levelIsNotNull = true;
-            var lists = new List<List<Node>>();
+            var lists = new ObservableCollection<ObservableCollection<Node>>();
             if (Root == null)
             {
-                Console.WriteLine("XUITA");
+                Console.WriteLine("ZDOROVA YA BIK ( XYITA )");
             }
-            var level = new List<Node> { Root };
+            var level = new ObservableCollection<Node> { Root };
             while (levelIsNotNull)
             {
-                var nextLevel = new List<Node>();
+                var nextLevel = new ObservableCollection<Node>();
                 levelIsNotNull = false;
                 foreach (var node in level)
                 {
@@ -97,14 +93,29 @@ namespace ClassLibrary.Structures
                         nextLevel.Add(node.Left);
                         nextLevel.Add(node.Right);
                     }
+                    else
+                    {
+                        nextLevel.Add(null);
+                        nextLevel.Add(null);
+                    }
                 }
                 lists.Add(level);
                 level = nextLevel;
             }
+
+            RBTreeColour clr = RBTreeColour.Black;
+            foreach (var lvl in lists)
+            {
+                foreach (var lvli in lvl)
+                {
+                    if (lvli != null) lvli.Colour = clr;
+                }
+                if (clr == RBTreeColour.Black) clr = RBTreeColour.Red;
+                else clr = RBTreeColour.Black;
+            }
             
             return lists;
         }
-     
         public Node Find(int key)
         {
             bool isFound = false;
@@ -141,7 +152,6 @@ namespace ClassLibrary.Structures
                 return null;
             }
         }
-
         public void Add(int item)
         {
             Node newItem = new Node(item);
@@ -249,7 +259,6 @@ namespace ClassLibrary.Structures
                 Root.Colour = RBTreeColour.Black;
             }
         }
-        
         public void Delete(int key)
         {
             Node item = Find(key);
@@ -399,7 +408,6 @@ namespace ClassLibrary.Structures
         }
     }
 
-    
     public class Node
     {
         public RBTreeColour Colour;
