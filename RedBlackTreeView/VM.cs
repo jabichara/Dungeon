@@ -14,8 +14,7 @@ namespace RedBlackTreeView
 {
     public class VM : BindableBase
     {
-        //private RBTree Tree { get; set; }
-        public Set<int> Tree { get; set; }
+        public RedBlackTree<int> Tree { get; set; }
         public ObservableCollection<TreeLevel> Items { get; set; }
         public DelegateCommand Add { get; set; }
         public int AddValue { get; set; }
@@ -25,25 +24,51 @@ namespace RedBlackTreeView
         public int FindValue { get; set; }
         public DelegateCommand Min { get; set; }
         public DelegateCommand Max { get; set; }
+        public int FindNextValue { get; set; }
+        public int FindPrevValue { get; set; }
+        public DelegateCommand FindNext { get; set; }
+        public DelegateCommand FindPrev { get; set; }
         public VM()
         {
             Add = new DelegateCommand(() =>
             {
-                Tree.Add(AddValue);
-                UpdateItems();
-                RaisePropertyChanged("Items");
+                SetNode<int> sni = Tree.Search(AddValue);
+                if (sni == null)
+                {
+                    Tree.Add(AddValue);
+                    UpdateItems();
+                    RaisePropertyChanged("Items");
+                }
+                else
+                {
+                    string title = "Information";
+                    string message = AddValue + " already exists in tree";
+                    MessageBox.Show(message, title);
+                }
             });
             Delete = new DelegateCommand(() =>
             {
-                Tree.Remove(DeleteValue);
-                UpdateItems();
-                RaisePropertyChanged("Items");
+                SetNode<int> sni = Tree.Search(DeleteValue);
+                if (sni != null)
+                {
+                    Tree.Remove(DeleteValue);
+                    UpdateItems();
+                    RaisePropertyChanged("Items");
+                }
             });
             Find = new DelegateCommand(() =>
             {
                 SetNode<int> sni = Tree.Search(FindValue);
-                string message = "Color of " + FindValue + " is " + sni.Color.ToString();
                 string title = "Information";
+                string message = null;
+                if (sni != null)
+                {
+                    message = "Color of " + FindValue + " is " + sni.Color.ToString();
+                }
+                else
+                {
+                    message = FindValue + " not exists in tree";
+                }
                 MessageBox.Show(message, title);
             });
             Min = new DelegateCommand(() =>
@@ -72,7 +97,54 @@ namespace RedBlackTreeView
                 string title = "Information";
                 MessageBox.Show(message, title);
             });
-            Tree = new Set<int>();
+            FindNext = new DelegateCommand(() =>
+            {
+                SetNode<int> sni = Tree.Search(FindNextValue);
+                string message = null;
+                string title = "Information";
+                if (sni != null)
+                {
+                    SetNode<int> next = (SetNode<int>)Utility.NextItem(sni);
+                    if (next != null && next.Data != 0 && next.Color != TriState.Header)
+                    {
+                        message = "Next after " + FindNextValue + " - " + next.Data + ", color - " + next.Color;
+                    }
+                    else
+                    {
+                        message = "Nothing after " + FindNextValue;
+                    }
+                }
+                else
+                {
+                    message = FindNextValue + " not exist in tree";
+                }
+                MessageBox.Show(message, title);
+            });
+            FindPrev = new DelegateCommand(() =>
+            {
+                SetNode<int> sni = Tree.Search(FindPrevValue);
+                string message = null;
+                string title = "Information";
+                if (sni != null)
+                {
+                    SetNode<int> prev = (SetNode<int>)Utility.PreviousItem(sni);
+                    if (prev != null && prev.Data != 0 && prev.Color != TriState.Header)
+                    {
+                        message = "Prev before " + FindPrevValue + " - " + prev.Data + ", color - " + prev.Color;
+                    }
+                    else
+                    {
+                        message = "Nothing prev " + FindPrevValue;
+                    }
+                }
+                else
+                {
+                    message = FindPrevValue + " not exist in tree";
+                }
+                MessageBox.Show(message, title);
+            });
+            Tree = new RedBlackTree<int>();
+
             List<int> list = new List<int>();
             Random rnd = new Random();
             for (int i = 0; i < 25; i++)

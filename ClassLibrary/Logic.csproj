@@ -52,9 +52,7 @@
     <Compile Include="Algorithms\BubbleSorter.cs" />
     <Compile Include="Algorithms\HoareSorter.cs" />
     <Compile Include="Algorithms\MergeSorter.cs" />
-    <Compile Include="Structures\PIZDA.cs" />
     <Compile Include="Structures\RedBlackTree.cs" />
-    <Compile Include="Structures\RedBlackTreeOld.cs" />
     <Compile Include="Structures\StackRealization.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:RedBlackTreeView"
         xmlns:viewmodel="clr-namespace:RedBlackTreeView"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="1220">
 
     <Window.DataContext>
         <viewmodel:VM/>
@@ -47,7 +47,7 @@
                     </ItemsControl.ItemTemplate>
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <UniformGrid Rows="1" MaxWidth="800"/>
+                            <UniformGrid Rows="1" MaxWidth="1200"/>
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
@@ -117,16 +117,16 @@
                     <RowDefinition Height="0.5*"/>
                     <RowDefinition Height="0.5*"/>
                 </Grid.RowDefinitions>
-                <Button FontSize="24" Content="FindNext" Command="{Binding Find}" Grid.Row="0"/>
-                <TextBox TextAlignment="Center" FontSize="24" Text="{Binding FindValue}" Grid.Row="1"/>
+                <Button FontSize="24" Content="FindNext" Command="{Binding FindNext}" Grid.Row="0"/>
+                <TextBox TextAlignment="Center" FontSize="24" Text="{Binding FindNextValue}" Grid.Row="1"/>
             </Grid>
             <Grid Grid.Column="6">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="0.5*"/>
                     <RowDefinition Height="0.5*"/>
                 </Grid.RowDefinitions>
-                <Button FontSize="24" Content="FindPrev" Command="{Binding Find}" Grid.Row="0"/>
-                <TextBox TextAlignment="Center" FontSize="24" Text="{Binding FindValue}" Grid.Row="1"/>
+                <Button FontSize="24" Content="FindPrev" Command="{Binding FindPrev}" Grid.Row="0"/>
+                <TextBox TextAlignment="Center" FontSize="24" Text="{Binding FindPrevValue}" Grid.Row="1"/>
             </Grid>
         </Grid>
     </Grid>

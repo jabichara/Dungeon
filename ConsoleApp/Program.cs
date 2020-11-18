@@ -21,7 +21,7 @@ namespace ConsoleApp
             //MeasureStackOperations.Show();
             //CalculatingInfixToPostfix.Show();
             //Console.ReadKey();
-            Set<int> S = new Set<int>();
+            RedBlackTree<int> S = new RedBlackTree<int>();
 
             //for (int i = 0; i < 10; i++)
             //S.Add(new Random().Next(30));
