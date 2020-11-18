@@ -34,10 +34,15 @@
                               HorizontalContentAlignment="Stretch">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="{x:Type viewmodel:TreeLevelItem}">
-                            <TextBlock Text="{Binding Value}" FontFamily="Arial"
+                            <Border
+                                CornerRadius="20" BorderBrush="#FFABADB3" BorderThickness="1"
+        VerticalAlignment="Center" UseLayoutRounding="True" Background="Aqua">
+                                <TextBlock Text="{Binding Value}" FontFamily="Arial"
                                        FontSize="30" Foreground="{Binding Colour}"
-                                       HorizontalAlignment="Center"
-                                       TextAlignment="Center"/>
+                                       HorizontalAlignment="Stretch"
+                                       TextAlignment="Center"
+                                       Margin="2"/>
+                            </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                     <ItemsControl.ItemsPanel>
@@ -57,11 +62,11 @@
         </Grid.RowDefinitions>
         <DockPanel Grid.Row="0">
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                <ItemsControl Grid.IsSharedSizeScope="True"
+                <ItemsControl Grid.IsSharedSizeScope="True" MaxWidth="820"
                               ScrollViewer.HorizontalScrollBarVisibility="Auto" 
                               ScrollViewer.VerticalScrollBarVisibility="Auto"
                               HorizontalAlignment="Stretch"
-                              HorizontalContentAlignment="Stretch"
+                              HorizontalContentAlignment="Stretch"                             
                       ItemsSource="{Binding Items}" 
                       ItemTemplate="{StaticResource ItemTemplate}">
                 </ItemsControl>
