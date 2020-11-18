@@ -34,7 +34,7 @@
                               HorizontalContentAlignment="Stretch">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="{x:Type viewmodel:TreeLevelItem}">
-                            <Border CornerRadius="7"  BorderThickness="1"
+                            <Border CornerRadius="7" BorderThickness="1"
                                      VerticalAlignment="Center" UseLayoutRounding="True"
                                      Visibility="{Binding Visibility}" Background="{Binding Colour}">
                                 <TextBlock Text="{Binding Value}" FontFamily="Arial"
@@ -47,7 +47,7 @@
                     </ItemsControl.ItemTemplate>
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <UniformGrid Rows="1" MaxWidth="1920"/>
+                            <UniformGrid Rows="1" MaxWidth="800"/>
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
