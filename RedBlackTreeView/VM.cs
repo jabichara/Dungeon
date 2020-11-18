@@ -92,6 +92,7 @@ namespace RedBlackTreeView
     {
         public string Value { get; set; }
         public SolidColorBrush Colour { get; set; }
+        public bool Visibility { get; set; }
         public TreeLevelItem(Node n)
         {
             if (n != null)
@@ -105,10 +106,12 @@ namespace RedBlackTreeView
                 {
                     Colour = new SolidColorBrush(Colors.OrangeRed);
                 }
+                Visibility = true;
             }
             else
             {
                 Value = "-";
+                Visibility = false;
                 Colour = new SolidColorBrush(Colors.White);
             }
         }
