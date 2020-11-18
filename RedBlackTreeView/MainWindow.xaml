@@ -34,20 +34,20 @@
                               HorizontalContentAlignment="Stretch">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="{x:Type viewmodel:TreeLevelItem}">
-                            <Border
-                                CornerRadius="20" BorderBrush="#FFABADB3" BorderThickness="1"
-        VerticalAlignment="Center" UseLayoutRounding="True" Background="Aqua">
+                            <Border CornerRadius="7"  BorderThickness="1"
+                                     VerticalAlignment="Center" UseLayoutRounding="True"
+                                     Visibility="{Binding Visibility}" Background="{Binding Colour}">
                                 <TextBlock Text="{Binding Value}" FontFamily="Arial"
-                                       FontSize="30" Foreground="{Binding Colour}"
+                                       FontSize="30" Foreground="White"
                                        HorizontalAlignment="Stretch"
-                                       TextAlignment="Center"
-                                       Margin="2"/>
+                                       TextAlignment="Center" Margin="2"
+                                       Visibility="{Binding Visibility}"/>
                             </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <UniformGrid Rows="1"/>
+                            <UniformGrid Rows="1" MaxWidth="1920"/>
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
@@ -62,11 +62,11 @@
         </Grid.RowDefinitions>
         <DockPanel Grid.Row="0">
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                <ItemsControl Grid.IsSharedSizeScope="True" MaxWidth="820"
+                <ItemsControl Grid.IsSharedSizeScope="True"
                               ScrollViewer.HorizontalScrollBarVisibility="Auto" 
                               ScrollViewer.VerticalScrollBarVisibility="Auto"
                               HorizontalAlignment="Stretch"
-                              HorizontalContentAlignment="Stretch"                             
+                              HorizontalContentAlignment="Stretch"
                       ItemsSource="{Binding Items}" 
                       ItemTemplate="{StaticResource ItemTemplate}">
                 </ItemsControl>
