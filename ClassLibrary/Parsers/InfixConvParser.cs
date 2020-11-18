@@ -105,14 +105,13 @@ namespace ClassLibrary.Parsers
                             {
                                 sb.Append(ex[i]);
                                 i++;
-                            }
+                            } 
                             i--;
                             output.Add(new ExpressionItem(ItemType.Number,
                                 double.Parse(sb.ToString())));
                         }
                         else
                         {
-
                             AddValue(ex[i], input, output);
                         }
                         break;

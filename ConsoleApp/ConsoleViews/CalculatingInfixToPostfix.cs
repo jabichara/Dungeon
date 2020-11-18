@@ -71,8 +71,9 @@ namespace ConsoleApp.ConsoleViews
                 sb.Append(" ");
             }
             var prefixStr = sb.ToString();
-            foreach(var e in text)
-                Console.WriteLine("Префиксная запись - " + e);
+            Console.WriteLine("Префиксная запись - " + text[0]);
+            for (int i = 1; i < text.Count(); i++)
+                Console.WriteLine(text[i]);
             Console.WriteLine("Результат в постфиксной записи - " + prefixStr);
             Console.WriteLine("Ответ: " + answer + ".");
         }
