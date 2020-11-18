@@ -25,6 +25,7 @@ namespace ConsoleApp.ConsoleViews
             tree.Add(2);
             tree.Add(4);
             tree.Add(5);
+            tree.Add(1);
             tree.Add(9);
             var e = tree.DisplayTree();
         }
