@@ -1,4 +1,5 @@
 ﻿using ClassLibrary.Structures;
+using Prism.Commands;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -12,21 +13,61 @@ namespace RedBlackTreeView
 {
     public class VM : BindableBase
     {
+        private RBTree Tree { get; set; }
         public ObservableCollection<TreeLevel> Items { get; set; }
+        public DelegateCommand Add { get; set; }
+        public int AddValue { get; set; }
+        public DelegateCommand Delete { get; set; }
+        public int DeleteValue { get; set; }
+        public DelegateCommand Find { get; set; }
+        public int FindValue { get; set; }
+        public DelegateCommand Min { get; set; }
+        public DelegateCommand Max { get; set; }
         public VM()
         {
-            var tree = new RBTree();
-            tree.Add(5);
-            tree.Add(3);
-            tree.Add(6);
-            tree.Add(7);
-            tree.Add(2);
-            tree.Add(4);
-            tree.Add(5);
-            tree.Add(9);
-            tree.Add(10);
-            tree.Add(11);
-            var e = tree.GetTree();
+            Add = new DelegateCommand(() =>
+            {
+                Tree.Add(AddValue);
+                UpdateItems();
+                RaisePropertyChanged("Items");
+            });
+            Delete = new DelegateCommand(() =>
+            {
+                Tree.Delete(DeleteValue);
+                UpdateItems();
+                RaisePropertyChanged("Items");
+            });
+            Find = new DelegateCommand(() =>
+            {
+                Tree.Find(FindValue);
+            });
+            Min = new DelegateCommand(() =>
+            {
+
+            });
+            Max = new DelegateCommand(() =>
+            {
+
+            });
+            Tree = new RBTree();
+            Tree.Add(5);
+            Tree.Add(3);
+            Tree.Add(6);
+            Tree.Add(7);
+            Tree.Add(2);
+            Tree.Add(4);
+            Tree.Add(5);
+            Random rnd = new Random();
+            for (int i = 0; i < 10; i++)
+            {
+                Tree.Add(rnd.Next(0, 10));
+            }
+            UpdateItems();
+        }
+
+        public void UpdateItems()
+        {
+            var e = Tree.GetTree();
             Items = new ObservableCollection<TreeLevel>();
             foreach (var ei in e)
             {
@@ -60,15 +101,15 @@ namespace RedBlackTreeView
                 {
                     Colour = new SolidColorBrush(Colors.Black);
                 }
-                else
+                else if (n.Colour == RBTreeColour.Red)
                 {
-                    Colour = new SolidColorBrush(Colors.Red);
+                    Colour = new SolidColorBrush(Colors.OrangeRed);
                 }
             }
             else
             {
                 Value = "-";
-                Colour = new SolidColorBrush(Colors.AliceBlue);
+                Colour = new SolidColorBrush(Colors.White);
             }
         }
     }

@@ -6,11 +6,8 @@ namespace ClassLibrary.Structures
 {
     public class RBTree
     {
-        
         public Node Root;
-        
         public RBTree() { }
-        
         public void LeftRotate(Node X)
         {
             Node Y = X.Right; // set Y
@@ -42,7 +39,6 @@ namespace ClassLibrary.Structures
             }
 
         }
-        
         public void RightRotate(Node Y)
         {
             // right rotate is simply mirror code from left rotate
@@ -75,7 +71,6 @@ namespace ClassLibrary.Structures
                 Y.Parent = X;
             }
         }
-        
         public ObservableCollection<ObservableCollection<Node>> GetTree()
         {
             bool levelIsNotNull = true;
@@ -107,10 +102,20 @@ namespace ClassLibrary.Structures
                 lists.Add(level);
                 level = nextLevel;
             }
+
+            RBTreeColour clr = RBTreeColour.Black;
+            foreach (var lvl in lists)
+            {
+                foreach (var lvli in lvl)
+                {
+                    if (lvli != null) lvli.Colour = clr;
+                }
+                if (clr == RBTreeColour.Black) clr = RBTreeColour.Red;
+                else clr = RBTreeColour.Black;
+            }
             
             return lists;
         }
-     
         public Node Find(int key)
         {
             bool isFound = false;
@@ -147,7 +152,6 @@ namespace ClassLibrary.Structures
                 return null;
             }
         }
-
         public void Add(int item)
         {
             Node newItem = new Node(item);
@@ -255,7 +259,6 @@ namespace ClassLibrary.Structures
                 Root.Colour = RBTreeColour.Black;
             }
         }
-        
         public void Delete(int key)
         {
             Node item = Find(key);
@@ -374,7 +377,6 @@ namespace ClassLibrary.Structures
             if (X != null)
                 X.Colour = RBTreeColour.Black;
         }
-
         public Node Minimum(Node X)
         {
             while (X.Left.Left != null)
@@ -387,7 +389,6 @@ namespace ClassLibrary.Structures
             }
             return X;
         }
-
         public Node TreeSuccessor(Node X)
         {
             if (X.Left != null)
@@ -407,7 +408,6 @@ namespace ClassLibrary.Structures
         }
     }
 
-    
     public class Node
     {
         public RBTreeColour Colour;
