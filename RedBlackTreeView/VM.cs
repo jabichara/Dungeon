@@ -32,7 +32,7 @@ namespace RedBlackTreeView
         {
             Add = new DelegateCommand(() =>
             {
-                Node<int> sni = Tree.Search(AddValue);
+                Node<int> sni = Tree.Find(AddValue);
                 if (sni == null)
                 {
                     Tree.Add(AddValue);
@@ -48,7 +48,7 @@ namespace RedBlackTreeView
             });
             Delete = new DelegateCommand(() =>
             {
-                Node<int> sni = Tree.Search(DeleteValue);
+                Node<int> sni = Tree.Find(DeleteValue);
                 if (sni != null)
                 {
                     Tree.Remove(DeleteValue);
@@ -58,7 +58,7 @@ namespace RedBlackTreeView
             });
             Find = new DelegateCommand(() =>
             {
-                Node<int> sni = Tree.Search(FindValue);
+                Node<int> sni = Tree.Find(FindValue);
                 string title = "Information";
                 string message = null;
                 if (sni != null)
@@ -99,7 +99,7 @@ namespace RedBlackTreeView
             });
             FindNext = new DelegateCommand(() =>
             {
-                Node<int> sni = Tree.Search(FindNextValue);
+                Node<int> sni = Tree.Find(FindNextValue);
                 string message = null;
                 string title = "Information";
                 if (sni != null)
@@ -122,7 +122,7 @@ namespace RedBlackTreeView
             });
             FindPrev = new DelegateCommand(() =>
             {
-                Node<int> sni = Tree.Search(FindPrevValue);
+                Node<int> sni = Tree.Find(FindPrevValue);
                 string message = null;
                 string title = "Information";
                 if (sni != null)

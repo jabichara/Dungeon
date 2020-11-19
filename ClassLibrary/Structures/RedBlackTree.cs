@@ -365,21 +365,12 @@ public class Tools
 }
 public class RedBlackTree<T>
 {
-    readonly IComparer<T> Comparer;
-    readonly Node<T> Header;
-    public ulong Length { get; private set; }
-    public ulong Depth
-    {
-        get
-        {
-            return Tools.Depth(Root);
-        }
-    }
+    public readonly IComparer<T> Comparer;
+    private readonly Node<T> Header;
     public RedBlackTree()
     {
         Comparer = Comparer<T>.Default;
         Header = new Node<T>();
-        Length = 0;
     }
     public Node<T> Root
     {
@@ -392,7 +383,7 @@ public class RedBlackTree<T>
             Header.Parent = value;
         }
     }
-    Node<T> LeftMost
+    private Node<T> LeftMost
     {
         get
         {
@@ -403,7 +394,7 @@ public class RedBlackTree<T>
             Header.Left = value;
         }
     }
-    Node<T> RightMost
+    private Node<T> RightMost
     {
         get
         {
@@ -414,18 +405,9 @@ public class RedBlackTree<T>
             Header.Right = value;
         }
     }
-    public bool this[T Key]
-    {
-        get
-        {
-            Node<T> Node = Search(Key);
-            if (Node == null) return false; else return true;
-        }
-    }
-    Node<T> Add(T Key, Node<T> y, Direction From)
+    private Node<T> Add(T Key, Node<T> y, Direction From)
     {
         Node<T> z = new Node<T>(Key);
-        Length++;
 
         if (y == Header)
         {
@@ -489,12 +471,11 @@ public class RedBlackTree<T>
             else // Item is found
             {
                 Tools.RebalanceForRemove(root, ref Header.Parent, ref Header.Left, ref Header.Right);
-                Length--;
                 break;
             }
         }
     }
-    public Node<T> Search(T Key)
+    public Node<T> Find(T Key)
     {
         if (Root == null)
             return null;
