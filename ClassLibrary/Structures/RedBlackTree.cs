@@ -49,28 +49,6 @@ public class Node<T> : Node
 }
 public class Tools
 {
-    public static ulong Depth(Node Root)
-    {
-        if (Root != null)
-        {
-            ulong Left = Root.Left != null ? Depth(Root.Left) : 0;
-            ulong Right = Root.Right != null ? Depth(Root.Right) : 0;
-            return Left < Right ? Right + 1 : Left + 1;
-        }
-        else
-            return 0;
-    }
-    public static ulong Paths(Node Root, ulong weight)
-    {
-        if (Root != null)
-        {
-            ulong Left = Root.Left != null ? Paths(Root.Left, weight + 1) : 0;
-            ulong Right = Root.Right != null ? Paths(Root.Right, weight + 1) : 0;
-            return Left + Right + weight;
-        }
-        else
-            return 0;
-    }
     public static Node PreviousItem(Node Node)
     {
         if (Node.IsHeader) { return Node.Right; }
@@ -348,20 +326,6 @@ public class Tools
         }
         return y;
     }
-    public static int BlackCount(Node Node, Node Root)
-    {
-        if (Node == null)
-            return 0;
-        else
-        {
-            int count = Node.Color == Color.Black ? 1 : 0;
-
-            if (Node == Root)
-                return count;
-            else
-                return count + BlackCount(Node.Parent, Root);
-        }
-    }
 }
 public class RedBlackTree<T>
 {
@@ -482,19 +446,15 @@ public class RedBlackTree<T>
         else
         {
             Node<T> search = Root;
-
             do
             {
                 long result = Comparer.Compare(Key, search.Data);
-
-                if (result < 0) search = (Node<T>)search.Left;
-
-                else if (result > 0) search = (Node<T>)search.Right;
-
+                if (result < 0) 
+                    search = (Node<T>)search.Left;
+                else if (result > 0) 
+                    search = (Node<T>)search.Right;
                 else break;
-
             } while (search != null);
-
             return search;
         }
     }
