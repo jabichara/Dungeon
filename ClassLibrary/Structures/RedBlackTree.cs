@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
-public enum Direction { FromLeft, FromRight };
-public enum TriState
+public enum Direction 
+{ 
+    Left, 
+    Right 
+};
+public enum Color
 {
     Header,
     Red,
@@ -13,33 +17,33 @@ public class Node
     public Node Left;
     public Node Right;
     public Node Parent;
-    public TriState Color;
+    public Color Color;
 
     public bool IsHeader
     {
         get
         {
-            return Color == TriState.Header;
+            return Color == Color.Header;
         }
     }
 }
-public class SetNode<T> : Node
+public class Node<T> : Node
 {
     public T Data;
 
-    public SetNode()
+    public Node()
     {
         Left = this;
         Right = this;
         Parent = null;
-        Color = TriState.Header;
+        Color = Color.Header;
     }
 
-    public SetNode(T t)
+    public Node(T t)
     {
         Left = null;
         Right = null;
-        Color = TriState.Black;
+        Color = Color.Black;
         Data = t;
     }
 }
@@ -56,7 +60,6 @@ public class Utility
         else
             return 0;
     }
-
     public static ulong Paths(Node Root, ulong weight)
     {
         if (Root != null)
@@ -68,7 +71,6 @@ public class Utility
         else
             return 0;
     }
-
     public static Node PreviousItem(Node Node)
     {
         if (Node.IsHeader) { return Node.Right; }
@@ -87,7 +89,6 @@ public class Utility
         }
         return Node;
     }
-
     public static Node NextItem(Node Node)
     {
         if (Node.IsHeader) return Node.Left;
@@ -106,21 +107,17 @@ public class Utility
         }
         return Node;
     }
-
     static Node Minimum(Node x)
     {
         while (x.Left != null) x = x.Left;
         return x;
     }
-
     static Node Maximum(Node x)
     {
         while (x.Right != null) x = x.Right;
         return x;
     }
-
-    static void RotateLeft(Node x,
-                           ref Node Root)
+    static void RotateLeft(Node x, ref Node Root)
     {
         Node y = x.Right;
 
@@ -138,9 +135,7 @@ public class Utility
         y.Left = x;
         x.Parent = y;
     }
-
-    static void RotateRight(Node x,
-                            ref Node Root)
+    static void RotateRight(Node x, ref Node Root)
     {
         Node y = x.Left;
 
@@ -158,21 +153,19 @@ public class Utility
         y.Right = x;
         x.Parent = y;
     }
-
-    public static void Rebalance(Node x,
-                                 ref Node Root)
+    public static void Rebalance(Node x, ref Node Root)
     {
-        x.Color = TriState.Red;
-        while (x != Root && x.Parent.Color == TriState.Red)
+        x.Color = Color.Red;
+        while (x != Root && x.Parent.Color == Color.Red)
         {
             if (x.Parent == x.Parent.Parent.Left)
             {
                 Node y = x.Parent.Parent.Right;
-                if (y != null && y.Color == TriState.Red)
+                if (y != null && y.Color == Color.Red)
                 {
-                    x.Parent.Color = TriState.Black;
-                    y.Color = TriState.Black;
-                    x.Parent.Parent.Color = TriState.Red;
+                    x.Parent.Color = Color.Black;
+                    y.Color = Color.Black;
+                    x.Parent.Parent.Color = Color.Red;
                     x = x.Parent.Parent;
                 }
                 else
@@ -182,19 +175,19 @@ public class Utility
                         x = x.Parent;
                         RotateLeft(x, ref Root);
                     }
-                    x.Parent.Color = TriState.Black;
-                    x.Parent.Parent.Color = TriState.Red;
+                    x.Parent.Color = Color.Black;
+                    x.Parent.Parent.Color = Color.Red;
                     RotateRight(x.Parent.Parent, ref Root);
                 }
             }
             else
             {
                 Node y = x.Parent.Parent.Left;
-                if (y != null && y.Color == TriState.Red)
+                if (y != null && y.Color == Color.Red)
                 {
-                    x.Parent.Color = TriState.Black;
-                    y.Color = TriState.Black;
-                    x.Parent.Parent.Color = TriState.Red;
+                    x.Parent.Color = Color.Black;
+                    y.Color = Color.Black;
+                    x.Parent.Parent.Color = Color.Red;
                     x = x.Parent.Parent;
                 }
                 else
@@ -204,26 +197,24 @@ public class Utility
                         x = x.Parent;
                         RotateRight(x, ref Root);
                     }
-                    x.Parent.Color = TriState.Black;
-                    x.Parent.Parent.Color = TriState.Red;
+                    x.Parent.Color = Color.Black;
+                    x.Parent.Parent.Color = Color.Red;
                     RotateLeft(x.Parent.Parent, ref Root);
                 }
             }
         }
-        Root.Color = TriState.Black;
+        Root.Color = Color.Black;
     }
-
-    static void TSwap<X>(ref X u, ref X v) { X t = u; u = v; v = t; }
-
-    public static Node RebalanceForRemove(Node z,
-                                          ref Node Root,
-                                          ref Node Leftmost,
-                                          ref Node Rightmost)
+    static void TSwap<X>(ref X u, ref X v)
+    { 
+        X t = u; 
+        u = v; 
+        v = t; 
+    }
+    public static Node RebalanceForRemove(Node z, ref Node Root, ref Node Leftmost, ref Node Rightmost)
     {
         Node y = z;
-        Node x = null;
-        Node x_Parent = null;
-
+        Node x;
         if (y.Left == null)
             x = y.Right;
         else
@@ -236,6 +227,7 @@ public class Utility
             x = y.Right;
         }
 
+        Node x_Parent;
         if (y != z)
         {
             z.Left.Parent = y;
@@ -283,38 +275,38 @@ public class Utility
                 else
                     Rightmost = Maximum(x);
         }
-        if (y.Color != TriState.Red)
+        if (y.Color != Color.Red)
         {
-            while (x != Root && (x == null || x.Color == TriState.Black))
+            while (x != Root && (x == null || x.Color == Color.Black))
                 if (x == x_Parent.Left)
                 {
                     Node w = x_Parent.Right;
-                    if (w.Color == TriState.Red)
+                    if (w.Color == Color.Red)
                     {
-                        w.Color = TriState.Black;
-                        x_Parent.Color = TriState.Red;
+                        w.Color = Color.Black;
+                        x_Parent.Color = Color.Red;
                         RotateLeft(x_Parent, ref Root);
                         w = x_Parent.Right;
                     }
-                    if ((w.Left == null || w.Left.Color == TriState.Black) &&
-                        (w.Right == null || w.Right.Color == TriState.Black))
+                    if ((w.Left == null || w.Left.Color == Color.Black) &&
+                        (w.Right == null || w.Right.Color == Color.Black))
                     {
-                        w.Color = TriState.Red;
+                        w.Color = Color.Red;
                         x = x_Parent;
                         x_Parent = x_Parent.Parent;
                     }
                     else
                     {
-                        if (w.Right == null || w.Right.Color == TriState.Black)
+                        if (w.Right == null || w.Right.Color == Color.Black)
                         {
-                            if (w.Left != null) w.Left.Color = TriState.Black;
-                            w.Color = TriState.Red;
+                            if (w.Left != null) w.Left.Color = Color.Black;
+                            w.Color = Color.Red;
                             RotateRight(w, ref Root);
                             w = x_Parent.Right;
                         }
                         w.Color = x_Parent.Color;
-                        x_Parent.Color = TriState.Black;
-                        if (w.Right != null) w.Right.Color = TriState.Black;
+                        x_Parent.Color = Color.Black;
+                        if (w.Right != null) w.Right.Color = Color.Black;
                         RotateLeft(x_Parent, ref Root);
                         break;
                     }
@@ -322,48 +314,47 @@ public class Utility
                 else
                 {
                     Node w = x_Parent.Left;
-                    if (w.Color == TriState.Red)
+                    if (w.Color == Color.Red)
                     {
-                        w.Color = TriState.Black;
-                        x_Parent.Color = TriState.Red;
+                        w.Color = Color.Black;
+                        x_Parent.Color = Color.Red;
                         RotateRight(x_Parent, ref Root);
                         w = x_Parent.Left;
                     }
-                    if ((w.Right == null || w.Right.Color == TriState.Black) &&
-                        (w.Left == null || w.Left.Color == TriState.Black))
+                    if ((w.Right == null || w.Right.Color == Color.Black) &&
+                        (w.Left == null || w.Left.Color == Color.Black))
                     {
-                        w.Color = TriState.Red;
+                        w.Color = Color.Red;
                         x = x_Parent;
                         x_Parent = x_Parent.Parent;
                     }
                     else
                     {
-                        if (w.Left == null || w.Left.Color == TriState.Black)
+                        if (w.Left == null || w.Left.Color == Color.Black)
                         {
-                            if (w.Right != null) w.Right.Color = TriState.Black;
-                            w.Color = TriState.Red;
+                            if (w.Right != null) w.Right.Color = Color.Black;
+                            w.Color = Color.Red;
                             RotateLeft(w, ref Root);
                             w = x_Parent.Left;
                         }
                         w.Color = x_Parent.Color;
-                        x_Parent.Color = TriState.Black;
-                        if (w.Left != null) w.Left.Color = TriState.Black;
+                        x_Parent.Color = Color.Black;
+                        if (w.Left != null) w.Left.Color = Color.Black;
                         RotateRight(x_Parent, ref Root);
                         break;
                     }
                 }
-            if (x != null) x.Color = TriState.Black;
+            if (x != null) x.Color = Color.Black;
         }
         return y;
     }
-
     public static int BlackCount(Node Node, Node Root)
     {
         if (Node == null)
             return 0;
         else
         {
-            int count = Node.Color == TriState.Black ? 1 : 0;
+            int count = Node.Color == Color.Black ? 1 : 0;
 
             if (Node == Root)
                 return count;
@@ -374,11 +365,10 @@ public class Utility
 }
 public struct SetEntry<T> : IEnumerator<T>
 {
-    public SetEntry(SetNode<T> n)
+    public SetEntry(Node<T> n)
     {
         Node = n;
     }
-
     public T Value
     {
         get
@@ -386,7 +376,6 @@ public struct SetEntry<T> : IEnumerator<T>
             return Node.Data;
         }
     }
-
     public bool IsEnd
     {
         get
@@ -394,24 +383,20 @@ public struct SetEntry<T> : IEnumerator<T>
             return Node.IsHeader;
         }
     }
-
     public bool MoveNext()
     {
-        Node = (SetNode<T>)Utility.NextItem(Node);
-        return Node.IsHeader ? false : true;
+        Node = (Node<T>)Utility.NextItem(Node);
+        return !Node.IsHeader;
     }
-
     public bool MovePrevious()
     {
-        Node = (SetNode<T>)Utility.PreviousItem(Node);
-        return Node.IsHeader ? false : true;
+        Node = (Node<T>)Utility.PreviousItem(Node);
+        return !Node.IsHeader;
     }
-
     public void Reset()
     {
         while (!MoveNext()) ;
     }
-
     object System.Collections.IEnumerator.Current
     {
         get
@@ -419,7 +404,6 @@ public struct SetEntry<T> : IEnumerator<T>
             return Node.Data;
         }
     }
-
     T IEnumerator<T>.Current
     {
         get
@@ -427,7 +411,6 @@ public struct SetEntry<T> : IEnumerator<T>
             return Node.Data;
         }
     }
-
     public static bool operator ==(SetEntry<T> x, SetEntry<T> y)
     {
         return x.Node == y.Node;
@@ -436,65 +419,69 @@ public struct SetEntry<T> : IEnumerator<T>
     {
         return x.Node != y.Node;
     }
-
+    public override bool Equals(object obj)
+    {
+        return base.Equals(obj);
+    }
+    public override int GetHashCode()
+    {
+        return base.GetHashCode();
+    }
     public override string ToString()
     {
         return Value.ToString();
     }
-
     public void Dispose()
     {
 
     }
-
-    public SetNode<T> Node;
+    public Node<T> Node;
 }
-public class RedBlackTree<T> : IEnumerable<T>
+public class RedBlackTree<T>
 {
-    IComparer<T> Comparer;
-    SetNode<T> Header;
-    ulong Nodes;
-    //*** Constructors/Destructor ***
-    public RedBlackTree()
-    {
-        Comparer = Comparer<T>.Default;
-        Header = new SetNode<T>();
-        Nodes = 0;
-    }
-    public RedBlackTree(IComparer<T> c)
-    {
-        Comparer = c;
-        Header = new SetNode<T>();
-        Nodes = 0;
-    }
-    //*** Properties ***
-    public SetNode<T> Root
+    readonly IComparer<T> Comparer;
+    readonly Node<T> Header;
+    public ulong Length { get; private set; }
+    public ulong Depth
     {
         get
         {
-            return (SetNode<T>)Header.Parent;
+            return Utility.Depth(Root);
+        }
+    }
+    public RedBlackTree()
+    {
+        Comparer = Comparer<T>.Default;
+        Header = new Node<T>();
+        Length = 0;
+    }
+    public Node<T> Root
+    {
+        get
+        {
+            return (Node<T>)Header.Parent;
         }
         set
         {
             Header.Parent = value;
         }
     }
-    SetNode<T> LeftMost
+    Node<T> LeftMost
     {
         get
         {
-            return (SetNode<T>)Header.Left;
+            return (Node<T>)Header.Left;
         }
         set
         {
             Header.Left = value;
         }
     }
-    SetNode<T> RightMost
+    Node<T> RightMost
     {
         get
         {
-            return (SetNode<T>)Header.Right;
+            return (Node<T>)Header.Right;
         }
         set
         {
@@ -505,7 +492,7 @@ public class RedBlackTree<T> : IEnumerable<T>
     {
         get
         {
-            return new SetEntry<T>((SetNode<T>)Header.Left);
+            return new SetEntry<T>((Node<T>)Header.Left);
         }
     }
     public SetEntry<T> End
@@ -515,36 +502,18 @@ public class RedBlackTree<T> : IEnumerable<T>
             return new SetEntry<T>(Header);
         }
     }
-    public ulong Length
-    {
-        get
-        {
-            return Nodes;
-        }
-    }
-    public ulong Depth
-    {
-        get
-        {
-            return Utility.Depth(Root);
-        }
-    }
-    //*** Indexer ***
     public bool this[T Key]
     {
         get
         {
-            SetNode<T> Node = Search(Key);
+            Node<T> Node = Search(Key);
             if (Node == null) return false; else return true;
         }
     }
-    //*** Methods ***
-    SetNode<T> Add(T Key,
-                   SetNode<T> y,
-                   Direction From)
+    Node<T> Add(T Key, Node<T> y, Direction From)
     {
-        SetNode<T> z = new SetNode<T>(Key);
-        Nodes++;
+        Node<T> z = new Node<T>(Key);
+        Length++;
 
         if (y == Header)
         {
@@ -552,7 +521,7 @@ public class RedBlackTree<T> : IEnumerable<T>
             RightMost = z;
             LeftMost = z;
         }
-        else if (From == Direction.FromLeft)
+        else if (From == Direction.Left)
         {
             y.Left = z;
             if (y == LeftMost) LeftMost = z;
@@ -567,10 +536,10 @@ public class RedBlackTree<T> : IEnumerable<T>
         Utility.Rebalance(z, ref Header.Parent);
         return z;
     }
-    public SetNode<T> Add(T Key)
+    public Node<T> Add(T Key)
     {
-        SetNode<T> y = Header;
-        SetNode<T> x = Root;
+        Node<T> y = Header;
+        Node<T> x = Root;
 
         int c = -1;
         while (x != null)
@@ -578,64 +547,56 @@ public class RedBlackTree<T> : IEnumerable<T>
             y = x;
             c = Comparer.Compare(Key, x.Data);
             if (c < 0)
-                x = (SetNode<T>)x.Left;
+                x = (Node<T>)x.Left;
             else if (c > 0)
-                x = (SetNode<T>)x.Right;
+                x = (Node<T>)x.Right;
             else
-                throw new EntryAlreadyExistsException();
+                throw new Exception("Entry already exists!");
         }
 
-        Direction From = c < 0 ? Direction.FromLeft : Direction.FromRight;
+        Direction From = c < 0 ? Direction.Left : Direction.Right;
         return Add(Key, y, From);
-    }
-    System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-    {
-        return new SetEntry<T>(Header);
-    }
-    IEnumerator<T> IEnumerable<T>.GetEnumerator()
-    {
-        return new SetEntry<T>(Header);
     }
     public void Remove(T Key)
     {
-        SetNode<T> root = Root;
+        Node<T> root = Root;
 
         for (; ; )
         {
             if (root == null)
-                throw new EntryNotFoundException();
+                throw new Exception("Entry not found!");
 
             int Compare = Comparer.Compare(Key, root.Data);
 
             if (Compare < 0)
-                root = (SetNode<T>)root.Left;
+                root = (Node<T>)root.Left;
 
             else if (Compare > 0)
-                root = (SetNode<T>)root.Right;
+                root = (Node<T>)root.Right;
 
             else // Item is found
             {
                 Utility.RebalanceForRemove(root, ref Header.Parent, ref Header.Left, ref Header.Right);
-                Nodes--;
+                Length--;
                 break;
             }
         }
     }
-    public SetNode<T> Search(T Key)
+    public Node<T> Search(T Key)
     {
         if (Root == null)
             return null;
         else
         {
-            SetNode<T> search = Root;
+            Node<T> search = Root;
 
             do
             {
                 long result = Comparer.Compare(Key, search.Data);
 
-                if (result < 0) search = (SetNode<T>)search.Left;
+                if (result < 0) search = (Node<T>)search.Left;
 
-                else if (result > 0) search = (SetNode<T>)search.Right;
+                else if (result > 0) search = (Node<T>)search.Right;
 
                 else break;
 
@@ -655,108 +616,12 @@ public class RedBlackTree<T> : IEnumerable<T>
         while (start != end)
         {
             string NewStringOut = start.Value.ToString();
-            if (start != last) NewStringOut = NewStringOut + ",";
-            StringOut = StringOut + NewStringOut;
+            if (start != last) NewStringOut += ",";
+            StringOut += NewStringOut;
             start.MoveNext();
         }
 
-        StringOut = StringOut + "}";
+        StringOut += "}";
         return StringOut;
     }
-    public void Validate()
-    {
-        if (Nodes == 0 || Root == null)
-        {
-            if (Nodes != 0) { throw new InvalidEmptySetException(); }
-            if (Root != null) { throw new InvalidEmptySetException(); }
-            if (Header.Left != Header) { throw new InvalidEndItemException(); }
-            if (Header.Right != Header) { throw new InvalidEndItemException(); }
-        }
-
-        int Length = Utility.BlackCount(LeftMost, Root);
-
-        for (SetEntry<T> Iterator = Begin; Iterator != End; Iterator.MoveNext())
-        {
-            SetNode<T> x = Iterator.Node;
-            SetNode<T> L = (SetNode<T>)x.Left;
-            SetNode<T> R = (SetNode<T>)x.Right;
-
-            if (x.Color == TriState.Red)
-                if ((L != null && L.Color == TriState.Red) ||
-                    (R != null && R.Color == TriState.Red))
-                    throw new InvalidNodeColorException();
-
-            if (L != null && Comparer.Compare(x.Data, L.Data) <= 0)
-                throw new OutOfKeyOrderException();
-
-            if (R != null && Comparer.Compare(R.Data, x.Data) <= 0)
-                throw new OutOfKeyOrderException();
-
-            if (L == null && R == null &&
-                Utility.BlackCount(x, Root) != Length)
-                throw new InvalidBlackCountException();
-        }
-
-        if (Root != null)
-        {
-            SetNode<T> x = Root;
-            while (x.Left != null) x = (SetNode<T>)x.Left;
-
-            if (LeftMost != x) throw new InvalidEndItemException();
-
-            SetNode<T> y = Root;
-            while (y.Right != null) y = (SetNode<T>)y.Right;
-
-            if (RightMost != y) throw new InvalidEndItemException();
-        }
-    }
-}
-
-public class EntryNotFoundException : Exception
-{
-    static String message = "The requested entry could not be located in the specified collection.";
-
-    public EntryNotFoundException() : base(message) { }
-}
-public class InvalidEndItemException : Exception
-{
-    static String message = "The validation routines detected that the end item of a tree is invalid.";
-
-    public InvalidEndItemException() : base(message) { }
-}
-public class InvalidEmptySetException : Exception
-{
-    static String message = "The validation routines detected that an empty tree is invalid.";
-
-    public InvalidEmptySetException() : base(message) { }
-}
-public class OutOfKeyOrderException : Exception
-{
-    static String message = "A trees was found to be out of Key order.";
-
-    public OutOfKeyOrderException() : base(message) { }
-}
-public class SetInvalidParentException : Exception
-{
-    static String message = "The validation routines detected that the Parent structure of a tree is invalid.";
-
-    public SetInvalidParentException() : base(message) { }
-}
-public class InvalidBlackCountException : Exception
-{
-    static String message = "An invalid black node count was encountered.";
-
-    public InvalidBlackCountException() : base(message) { }
-}
-public class InvalidNodeColorException : Exception
-{
-    static String message = "The color of a node is invalid.";
-
-    public InvalidNodeColorException() : base(message) { }
-}
-public class EntryAlreadyExistsException : Exception
-{
-    static String message = "The set entry already exists.";
-
-    public EntryAlreadyExistsException() : base(message) { }
 }
