@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:RedBlackTreeView"
         xmlns:viewmodel="clr-namespace:RedBlackTreeView"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="1220">
 
     <Window.DataContext>
         <viewmodel:VM/>
@@ -34,7 +34,7 @@
                               HorizontalContentAlignment="Stretch">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="{x:Type viewmodel:TreeLevelItem}">
-                            <Border CornerRadius="7"  BorderThickness="1"
+                            <Border CornerRadius="7" BorderThickness="1"
                                      VerticalAlignment="Center" UseLayoutRounding="True"
                                      Visibility="{Binding Visibility}" Background="{Binding Colour}">
                                 <TextBlock Text="{Binding Value}" FontFamily="Arial"
@@ -47,7 +47,7 @@
                     </ItemsControl.ItemTemplate>
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <UniformGrid Rows="1" MaxWidth="1920"/>
+                            <UniformGrid Rows="1" MaxWidth="1200"/>
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
@@ -79,6 +79,8 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
@@ -105,10 +107,26 @@
                 <TextBox TextAlignment="Center" FontSize="24" Text="{Binding FindValue}" Grid.Row="1"/>
             </Grid>
             <Grid Grid.Column="3">
-                <Button FontSize="24" Content="Min" Grid.Row="0"/>
+                <Button Command="{Binding Min}" FontSize="24" Content="Min" Grid.Row="0"/>
             </Grid>
             <Grid Grid.Column="4">
-                <Button FontSize="24" Content="Max" Grid.Row="0"/>
+                <Button Command="{Binding Max}" FontSize="24" Content="Max" Grid.Row="0"/>
+            </Grid>
+            <Grid Grid.Column="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="0.5*"/>
+                </Grid.RowDefinitions>
+                <Button FontSize="24" Content="FindNext" Command="{Binding FindNext}" Grid.Row="0"/>
+                <TextBox TextAlignment="Center" FontSize="24" Text="{Binding FindNextValue}" Grid.Row="1"/>
+            </Grid>
+            <Grid Grid.Column="6">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="0.5*"/>
+                </Grid.RowDefinitions>
+                <Button FontSize="24" Content="FindPrev" Command="{Binding FindPrev}" Grid.Row="0"/>
+                <TextBox TextAlignment="Center" FontSize="24" Text="{Binding FindPrevValue}" Grid.Row="1"/>
             </Grid>
         </Grid>
     </Grid>

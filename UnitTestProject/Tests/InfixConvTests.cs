@@ -16,7 +16,7 @@ namespace UnitTestProject.Tests
         public void Test()
         {
             InfixСonversion ic = new InfixСonversion();
-            List<ExpressionItem> ei = new List<ExpressionItem>
+            _ = new List<ExpressionItem>
             {
                 //"ln(12)*(13+cos(90))",
                 new ExpressionItem(ItemType.Operation, Operation.Logarithm),
@@ -33,7 +33,7 @@ namespace UnitTestProject.Tests
                 new ExpressionItem(ItemType.Bracket, Bracket.RightBracket),
                 new ExpressionItem(ItemType.Bracket, Bracket.RightBracket),
             };
-            ei = new List<ExpressionItem>
+            List<ExpressionItem> ei = new List<ExpressionItem>
             {
                 //cos(a+b/sqrt(d^2))
                 //a = 45
@@ -53,7 +53,7 @@ namespace UnitTestProject.Tests
                 new ExpressionItem(ItemType.Bracket, Bracket.RightBracket),
                 new ExpressionItem(ItemType.Bracket, Bracket.RightBracket),
             };
-            List<ExpressionItem> qe = ic.InfixToPostfix(ei);
+            _ = ic.InfixToPostfix(ei);
             Assert.AreEqual(1, 1);
         }
 
@@ -79,7 +79,7 @@ namespace UnitTestProject.Tests
                 new ExpressionItem(ItemType.Bracket, Bracket.RightBracket),
             };
             ei = ic.InfixToPostfix(ei);
-            double calc = ic.CalculateValue(ei);
+            _ = ic.CalculateValue(ei);
             Assert.AreEqual(1, 1);
         }
     }
