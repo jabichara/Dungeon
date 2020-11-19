@@ -47,7 +47,7 @@ public class Node<T> : Node
         Data = t;
     }
 }
-public class Utility
+public class Tools
 {
     public static ulong Depth(Node Root)
     {
@@ -385,12 +385,12 @@ public struct SetEntry<T> : IEnumerator<T>
     }
     public bool MoveNext()
     {
-        Node = (Node<T>)Utility.NextItem(Node);
+        Node = (Node<T>)Tools.NextItem(Node);
         return !Node.IsHeader;
     }
     public bool MovePrevious()
     {
-        Node = (Node<T>)Utility.PreviousItem(Node);
+        Node = (Node<T>)Tools.PreviousItem(Node);
         return !Node.IsHeader;
     }
     public void Reset()
@@ -446,7 +446,7 @@ public class RedBlackTree<T>
     {
         get
         {
-            return Utility.Depth(Root);
+            return Tools.Depth(Root);
         }
     }
     public RedBlackTree()
@@ -533,7 +533,7 @@ public class RedBlackTree<T>
         }
 
         z.Parent = y;
-        Utility.Rebalance(z, ref Header.Parent);
+        Tools.Rebalance(z, ref Header.Parent);
         return z;
     }
     public Node<T> Add(T Key)
@@ -576,7 +576,7 @@ public class RedBlackTree<T>
 
             else // Item is found
             {
-                Utility.RebalanceForRemove(root, ref Header.Parent, ref Header.Left, ref Header.Right);
+                Tools.RebalanceForRemove(root, ref Header.Parent, ref Header.Left, ref Header.Right);
                 Length--;
                 break;
             }

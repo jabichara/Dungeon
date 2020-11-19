@@ -104,7 +104,7 @@ namespace RedBlackTreeView
                 string title = "Information";
                 if (sni != null)
                 {
-                    Node<int> next = (Node<int>)Utility.NextItem(sni);
+                    Node<int> next = (Node<int>)Tools.NextItem(sni);
                     if (next != null && next.Data != 0 && next.Color != Color.Header)
                     {
                         message = "Next after " + FindNextValue + " - " + next.Data + ", color - " + next.Color;
@@ -127,7 +127,7 @@ namespace RedBlackTreeView
                 string title = "Information";
                 if (sni != null)
                 {
-                    Node<int> prev = (Node<int>)Utility.PreviousItem(sni);
+                    Node<int> prev = (Node<int>)Tools.PreviousItem(sni);
                     if (prev != null && prev.Data != 0 && prev.Color != Color.Header)
                     {
                         message = "Prev before " + FindPrevValue + " - " + prev.Data + ", color - " + prev.Color;
