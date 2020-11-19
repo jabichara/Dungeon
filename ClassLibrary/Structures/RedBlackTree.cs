@@ -363,80 +363,6 @@ public class Tools
         }
     }
 }
-public struct SetEntry<T> : IEnumerator<T>
-{
-    public SetEntry(Node<T> n)
-    {
-        Node = n;
-    }
-    public T Value
-    {
-        get
-        {
-            return Node.Data;
-        }
-    }
-    public bool IsEnd
-    {
-        get
-        {
-            return Node.IsHeader;
-        }
-    }
-    public bool MoveNext()
-    {
-        Node = (Node<T>)Tools.NextItem(Node);
-        return !Node.IsHeader;
-    }
-    public bool MovePrevious()
-    {
-        Node = (Node<T>)Tools.PreviousItem(Node);
-        return !Node.IsHeader;
-    }
-    public void Reset()
-    {
-        while (!MoveNext()) ;
-    }
-    object System.Collections.IEnumerator.Current
-    {
-        get
-        {
-            return Node.Data;
-        }
-    }
-    T IEnumerator<T>.Current
-    {
-        get
-        {
-            return Node.Data;
-        }
-    }
-    public static bool operator ==(SetEntry<T> x, SetEntry<T> y)
-    {
-        return x.Node == y.Node;
-    }
-    public static bool operator !=(SetEntry<T> x, SetEntry<T> y)
-    {
-        return x.Node != y.Node;
-    }
-    public override bool Equals(object obj)
-    {
-        return base.Equals(obj);
-    }
-    public override int GetHashCode()
-    {
-        return base.GetHashCode();
-    }
-    public override string ToString()
-    {
-        return Value.ToString();
-    }
-    public void Dispose()
-    {
-
-    }
-    public Node<T> Node;
-}
 public class RedBlackTree<T>
 {
     readonly IComparer<T> Comparer;
@@ -486,20 +412,6 @@ public class RedBlackTree<T>
         set
         {
             Header.Right = value;
-        }
-    }
-    public SetEntry<T> Begin
-    {
-        get
-        {
-            return new SetEntry<T>((Node<T>)Header.Left);
-        }
-    }
-    public SetEntry<T> End
-    {
-        get
-        {
-            return new SetEntry<T>(Header);
         }
     }
     public bool this[T Key]
@@ -604,24 +516,5 @@ public class RedBlackTree<T>
 
             return search;
         }
-    }
-    public override string ToString()
-    {
-        string StringOut = "{";
-
-        SetEntry<T> start = Begin;
-        SetEntry<T> end = End;
-        SetEntry<T> last = End; last.MovePrevious();
-
-        while (start != end)
-        {
-            string NewStringOut = start.Value.ToString();
-            if (start != last) NewStringOut += ",";
-            StringOut += NewStringOut;
-            start.MoveNext();
-        }
-
-        StringOut += "}";
-        return StringOut;
     }
 }

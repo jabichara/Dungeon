@@ -17,30 +17,7 @@ namespace ConsoleApp
     {
         static void Main()
         {
-            //Console.SetBufferSize(Console.BufferWidth, 32766);
-            //MeasureStackOperations.Show();
-            //CalculatingInfixToPostfix.Show();
-            //Console.ReadKey();
-
-            //Console.WriteLine("Depth = {0}", S.Depth);
-
-            //S.Validate();
-
-            //for (int i = 0; i < 10; i += 2)
-            //    S.Remove(i);
-
-            //Console.WriteLine("Depth = {0}", S.Depth);
-
-            //S.Validate();
-
-            //foreach (var Str in S)
-            //    Console.WriteLine("{0}", Str);
-
-            //if (S[3])
-            //    Console.WriteLine("{0} is in {1}", 3.ToString(), S);
-            //else
-            //    Console.WriteLine("{0} is not in {1}", 3.ToString(), S);
-            //ViewTree.Show();
+            TextSorting.Show();
             Console.ReadLine();
         }
     }

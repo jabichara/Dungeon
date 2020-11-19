@@ -158,7 +158,6 @@ namespace RedBlackTreeView
             }
             UpdateItems();
         }
-
         public void UpdateItems()
         {
             var e = GetTree();
@@ -168,7 +167,6 @@ namespace RedBlackTreeView
                 Items.Add(new TreeLevel(ei));
             }
         }
-
         public ObservableCollection<ObservableCollection<Node<int>>> GetTree()
         {
             bool levelIsNotNull = true;
