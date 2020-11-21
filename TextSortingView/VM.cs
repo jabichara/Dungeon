@@ -89,6 +89,7 @@ namespace TextSortingView
             ArrToObsColl(arr);
             CalcWords(arr);
             SortTextLabel = "Sort Text";
+            UniqueWordsInText = SortedTextWords.Count();
             RaisePropertyChanged("SortTextLabel");
             UpdateInfo();
         }
@@ -123,10 +124,6 @@ namespace TextSortingView
                 Word = str;
                 Count = count;
             }
-        }
-        public class StringCrutch
-        {
-
         }
     }
 }
