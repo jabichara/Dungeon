@@ -1,0 +1,139 @@
+﻿<Window x:Class="TextSortingView.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TextSortingView"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="768" Width="1024">
+
+    <Window.DataContext>
+        <local:VM/>
+    </Window.DataContext>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.4*"/>
+            <ColumnDefinition Width="0.3*"/>
+            <ColumnDefinition Width="0.3*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" FontSize="24" Text="Input"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="1" Text="{Binding InputText}" TextWrapping="Wrap"
+                     BorderThickness="2" BorderBrush="Black" Margin="5"
+                     VerticalScrollBarVisibility="Auto" FontSize="18"/>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.4*"/>
+                <RowDefinition Height="0.6*"/>
+            </Grid.RowDefinitions>
+            <GroupBox Grid.Row="0" BorderThickness="2" BorderBrush="Black" Margin="0, 0, 0, 3">
+                <GroupBox.Header>
+                    <Label FontSize="24" Content="Info" HorizontalAlignment="Center"/>
+                </GroupBox.Header>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <DockPanel Grid.Row="0">
+                        <TextBlock Text="Words in text:" FontSize="24" Margin="15, 0, 0, 0"
+                                   TextAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding WordsInText}" Margin="5"  FontSize="24"
+                                   VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </DockPanel>
+                    <DockPanel Grid.Row="1">
+                        <TextBlock Text="Unique words:" FontSize="24" Margin="15, 0, 0, 0"
+                                   TextAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding UniqueWordsInText}" Margin="5"  FontSize="24"
+                                   VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </DockPanel>
+                    <DockPanel Grid.Row="2">
+                        <TextBlock Text="Bubble sort time:" FontSize="24" Margin="15, 0, 0, 0"
+                                   TextAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding BubbleSortingTime}" Margin="5"  FontSize="24"
+                                   VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </DockPanel>
+                    <DockPanel Grid.Row="3">
+                        <TextBlock Text="Merge sort time:" FontSize="24" Margin="15, 0, 0, 0"
+                                   TextAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding MergeSortingTime}" Margin="5"  FontSize="24"
+                                   VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </DockPanel>
+                </Grid>
+            </GroupBox>
+            <GroupBox Grid.Row="1" BorderThickness="2" BorderBrush="Black" Margin="0, 0, 0, 3">
+                <GroupBox.Header>
+                    <Label FontSize="24" Content="Tools" HorizontalAlignment="Center"/>
+                </GroupBox.Header>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Button Grid.Row="0" Background="White" 
+                            BorderThickness="2" BorderBrush="Black"
+                            Margin="5" Content="Sort text" FontSize="24"
+                            Command="{Binding SortText}"/>
+                    <Button Grid.Row="1" Background="White" 
+                            BorderThickness="2" BorderBrush="Black"
+                            Margin="5" Content="Generate random text" FontSize="24"
+                            Command="{Binding GenerateRandomText}"/>
+                    <Grid Grid.Row="2">
+                        <DockPanel>
+                            <TextBlock Text="Words count:" FontSize="24" Margin="15, 0, 0, 0"
+                                       DockPanel.Dock="Left" TextAlignment="Center"
+                                       VerticalAlignment="Center"/>
+                            <TextBox Text="{Binding RandomTextLength}" 
+                             BorderThickness="2" BorderBrush="Black" Margin="5" 
+                             VerticalScrollBarVisibility="Auto" FontSize="24"
+                             HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                        </DockPanel>
+                    </Grid>
+                    <Button Grid.Row="3" Background="White" 
+                            BorderThickness="2" BorderBrush="Black"
+                            Margin="5" Content="Clear text" FontSize="24"
+                            Command="{Binding ClearText}"/>
+                </Grid>
+            </GroupBox>
+        </Grid>
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" FontSize="24" Text="Count"
+                         VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <ItemsControl Grid.Row="1" Margin="5" BorderThickness="2" BorderBrush="Black">
+                    
+                </ItemsControl>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" FontSize="24" Text="Sorted"
+                         VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <ItemsControl Grid.Row="1" Margin="5" BorderBrush="Black" BorderThickness="2">
+                    
+                </ItemsControl>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

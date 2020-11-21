@@ -147,7 +147,7 @@ namespace RedBlackTreeView
 
             List<int> list = new List<int>();
             Random rnd = new Random();
-            for (int i = 0; i < 25; i++)
+            for (int i = 0; i < 1; i++)
             {
                 int a = rnd.Next(1, 100);
                 if (!list.Contains(a))

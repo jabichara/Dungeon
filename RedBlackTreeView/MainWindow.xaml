@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:RedBlackTreeView"
         xmlns:viewmodel="clr-namespace:RedBlackTreeView"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="1220">
+        Title="RedBlackTree" Height="450" Width="1220">
 
     <Window.DataContext>
         <viewmodel:VM/>
