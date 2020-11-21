@@ -17,6 +17,10 @@ namespace ClassLibrary.Generators
         public static string GenerateText(int wordCount = 1000, int wordLength = 5)
         {
             StringBuilder text = new StringBuilder();
+            if (wordCount == 0)
+            {
+                return string.Empty;
+            }
             for (int i = 0; i < wordCount - 1; i++)
             {
                 text.Append(GenerateWord(wordLength));

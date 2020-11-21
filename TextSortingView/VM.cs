@@ -16,7 +16,7 @@ namespace TextSortingView
     {
         public string InputText { get; set; }
         public ObservableCollection<string> SortedText { get; set; }
-        public ObservableCollection<Tuple<string, int>> SortedTextWords { get; set; }
+        public ObservableCollection<El> SortedTextWords { get; set; }
         public DelegateCommand SortText { get; set; }
         public DelegateCommand GenerateRandomText { get; set; }
         public DelegateCommand ClearText { get; set; }
@@ -25,28 +25,23 @@ namespace TextSortingView
         public int UniqueWordsInText { get; set; }
         public int BubbleSortingTime { get; set; }
         public int MergeSortingTime { get; set; }
+        public string SortTextLabel { get; set; }
 
         public VM()
         {
             SortedText = new ObservableCollection<string>();
-            SortedTextWords = new ObservableCollection<Tuple<string, int>>();
+            SortedTextWords = new ObservableCollection<El>();
+            SortTextLabel = "Sort text";
             SortText = new DelegateCommand(() =>
             {
-                string[] array = InputText.Split();
-
-                BubbleSortingTime = (int)ActionTimeMeasurer.Measure(new Action(() => 
-                                                   BubbleSorter.Sort(array)));
-
-                array = InputText.Split();
-
-                MergeSortingTime = (int)ActionTimeMeasurer.Measure(new Action(() =>
-                    MergeSorter.Sort(array)));
-
-                GC.Collect();
+                ClearInfo();
+                SortTextLabel = "Sorting...";
+                RaisePropertyChanged("SortTextLabel");
+                Sort();
             });
             GenerateRandomText = new DelegateCommand(() =>
             {
-                InputText = TextGenerator.GenerateText(100, 3);
+                InputText = TextGenerator.GenerateText(RandomTextLength, 3);
                 RaisePropertyChanged("InputText");
             });
             ClearText = new DelegateCommand(() =>
@@ -56,17 +51,82 @@ namespace TextSortingView
                 ClearInfo();
             });
         }
-
         public void ClearInfo()
         {
+            SortedTextWords.Clear();
+            SortedText.Clear();
             WordsInText = 0;
             UniqueWordsInText = 0;
             MergeSortingTime = 0;
             BubbleSortingTime = 0;
+            UpdateInfo();
+        }
+        public void UpdateInfo()
+        {
             RaisePropertyChanged("WordsInText");
             RaisePropertyChanged("UniqueWordsInText");
             RaisePropertyChanged("MergeSortingTime");
             RaisePropertyChanged("BubbleSortingTime");
+            RaisePropertyChanged("SortedText");
+            RaisePropertyChanged("SortedTextWords");
+        }
+        public async void Sort()
+        {
+            string[] arr = await Task.Run(() => 
+            {
+                GC.Collect();
+                string[] array = InputText.Split();
+                BubbleSortingTime = (int)ActionTimeMeasurer.Measure(new Action(() =>
+                                                   BubbleSorter.Sort(array)));
+                GC.Collect();
+                array = InputText.Split();
+                MergeSortingTime = (int)ActionTimeMeasurer.Measure(new Action(() =>
+                                                    MergeSorter.Sort(array)));
+                WordsInText = array.Length;
+
+                return array;
+            });
+            ArrToObsColl(arr);
+            CalcWords(arr);
+            SortTextLabel = "Sort Text";
+            RaisePropertyChanged("SortTextLabel");
+            UpdateInfo();
+        }
+        public void ArrToObsColl(string[] arr)
+        {
+            foreach(string str in arr)
+            {
+                SortedText.Add(str);
+            }
+        }
+        public void CalcWords(string[] arr)
+        {
+            for (int i = 0; i < arr.Length; i++)
+            {
+                string str = arr[i];
+                int count = 0;
+                while (i < arr.Length && arr[i] == str)
+                {
+                    if (i < arr.Length) count++;
+                    i++;
+                }
+                i--;
+                SortedTextWords.Add(new El(str, count));
+            }
+        }
+        public class El
+        {
+            public string Word { get; set; }
+            public int Count { get; set; }
+            public El(string str, int count)
+            {
+                Word = str;
+                Count = count;
+            }
+        }
+        public class StringCrutch
+        {
+
         }
     }
 }
