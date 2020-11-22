@@ -32,6 +32,7 @@ namespace TextSortingView
             SortedText = new ObservableCollection<string>();
             SortedTextWords = new ObservableCollection<El>();
             SortTextLabel = "Sort text";
+            InputText = "Place a text here";
             SortText = new DelegateCommand(() =>
             {
                 ClearInfo();
@@ -74,16 +75,19 @@ namespace TextSortingView
         {
             string[] arr = await Task.Run(() => 
             {
-                GC.Collect();
-                string[] array = InputText.Split();
-                BubbleSortingTime = (int)ActionTimeMeasurer.Measure(new Action(() =>
-                                                   BubbleSorter.Sort(array)));
-                GC.Collect();
-                array = InputText.Split();
-                MergeSortingTime = (int)ActionTimeMeasurer.Measure(new Action(() =>
-                                                    MergeSorter.Sort(array)));
-                WordsInText = array.Length;
-
+                InputText = InputText.Trim();
+                string[] array = Split(InputText);
+                if (array.Length > 0)
+                {
+                    GC.Collect();
+                    BubbleSortingTime = (int)ActionTimeMeasurer.Measure(new Action(() =>
+                                                       BubbleSorter.Sort(array)));
+                    array = Split(InputText);
+                    GC.Collect();
+                    MergeSortingTime = (int)ActionTimeMeasurer.Measure(new Action(() =>
+                                                        MergeSorter.Sort(array)));
+                    WordsInText = array.Length;
+                }
                 return array;
             });
             ArrToObsColl(arr);
@@ -124,6 +128,38 @@ namespace TextSortingView
                 Word = str;
                 Count = count;
             }
+        }
+        public static string[] Split(string text)
+        {
+            if (text == null)
+            {
+                return new string[0];
+            }
+            char[] separators = new char[] { ' ', ',', ':', ';', '?', '.', '(', ')',
+                '"', '-', '‘', '’', '—', '\n', '\r', '"', '!', '[', ']' };
+            List<string> wordsToRemove = new List<string>();
+            List<string> output = text.ToLower()
+                .Split(separators)
+                .ToList();
+            foreach (string word in output)
+            {
+                char ch = ' ';
+                bool flag = false;
+                foreach (char symbol in word)
+                {
+                    if (symbol != ch)
+                    {
+                        flag = true;
+                        break;
+                    }
+                }
+                if (!flag) wordsToRemove.Add(word);
+            }
+            foreach (string word in wordsToRemove)
+            {
+                output.Remove(word);
+            }
+            return output.ToArray();
         }
     }
 }

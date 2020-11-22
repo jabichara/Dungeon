@@ -35,7 +35,7 @@ namespace ClassLibrary.Generators
             StringBuilder word = new StringBuilder();
             for (int i = 0; i < wordLength; i++)
             {
-                word.Append(Alphabet[rnd.Next(Alphabet.Length - 1)]);
+                word.Append(Alphabet[rnd.Next(Alphabet.Length)]);
             }
             return word.ToString();
         }

@@ -11,7 +11,7 @@
         <local:VM/>
     </Window.DataContext>
 
-    <Grid>
+    <Grid Background="LightGray">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.4*"/>
             <ColumnDefinition Width="0.3*"/>
@@ -120,8 +120,8 @@
                 <TextBlock Grid.Row="0" FontSize="24" Text="Count"
                          VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 <DockPanel Grid.Row="1">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                        <ItemsControl Margin="5" BorderThickness="2" BorderBrush="Black"
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                        <ItemsControl Margin="5" BorderThickness="2" BorderBrush="Black" Background="White"
                               ItemsSource="{Binding SortedTextWords}"
                               HorizontalContentAlignment="Stretch">
                             <ItemsControl.ItemTemplate>
@@ -133,10 +133,10 @@
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Grid.Column="0" Text="{Binding Word}"
                                            FontSize="18" HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"/>
+                                           VerticalAlignment="Center" TextWrapping="WrapWithOverflow"/>
                                         <TextBlock Grid.Column="1" Text="{Binding Count}"
                                            FontSize="18" HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"/>
+                                           VerticalAlignment="Center" TextWrapping="WrapWithOverflow"/>
                                     </Grid>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
@@ -152,14 +152,14 @@
                 <TextBlock Grid.Row="0" FontSize="24" Text="Sorted"
                          VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 <DockPanel Grid.Row="1">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                        <ItemsControl Margin="5" BorderThickness="2" BorderBrush="Black"
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                        <ItemsControl Margin="5" BorderThickness="2" BorderBrush="Black" Background="White"
                               ItemsSource="{Binding SortedText}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Grid.Column="0" Text="{Binding}"
                                            FontSize="18" HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"/>
+                                           VerticalAlignment="Center" TextWrapping="WrapWithOverflow"/>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
