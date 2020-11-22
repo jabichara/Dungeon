@@ -83,9 +83,12 @@ namespace TextSortingView
                     BubbleSortingTime = (int)ActionTimeMeasurer.Measure(new Action(() =>
                                                        BubbleSorter.Sort(array)));
                     array = Split(InputText);
-                    GC.Collect();
-                    MergeSortingTime = (int)ActionTimeMeasurer.Measure(new Action(() =>
-                                                        MergeSorter.Sort(array)));
+                    if (array.Length > 0)
+                    {
+                        GC.Collect();
+                        MergeSortingTime = (int)ActionTimeMeasurer.Measure(new Action(() =>
+                                                            MergeSorter.Sort(array)));
+                    }
                     WordsInText = array.Length;
                 }
                 return array;
