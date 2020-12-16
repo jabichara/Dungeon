@@ -7,50 +7,77 @@ using System.Threading.Tasks;
 namespace ClassLibrary.Structures
 {
 
-    public class HashTable<MovieInfo>
+    public class HashTable
     {
         public long MaxCount { get; set; }
+        public MovieInfo[] Values { get; set; }
 
         public HashTable(long maxCount)
         {
             MaxCount = maxCount;
+            Values = new MovieInfo[maxCount];
         }
 
         public bool Insert(MovieInfo movie)
         {
+            if (movie == null)
+            {
+                throw new Exception();
+            }
+            long hash = GetHash(movie.Name);
+            for (long i = hash; i < Values.Length; i++)
+            {
+                if (Values[i] == null)
+                {
+                    Values[i] = movie;
+                    return true;
+                }
+            }
             return false;
         }
 
-        public bool Remove()
+        public bool Remove(string movieName)
         {
+            long hash = GetHash(movieName);
+            for (long i = hash; i < Values.Length; i++)
+            {
+                if (movieName.Equals(Values[i].Name))
+                {
+                    Values[i] = null;
+                    return true;
+                }
+            }
             return false;
         }
 
-        public bool Search(out MovieInfo movie)
+        public bool Search(string movieName, out MovieInfo found)
         {
-            movie = default(MovieInfo);
+            long hash = GetHash(movieName);
+            for (long i = hash; i < Values.Length; i++)
+            {
+                if (movieName.Equals(Values[i].Name))
+                {
+                    found = Values[i];
+                    return true;
+                }
+            }
+            found = default(MovieInfo);
             return false;
         }
 
-        public long GetHash(MovieInfo movie)
+        public long GetHash(string movieName)
         {
             return 0;
         }
     }
 
-    public class HashTableItem<T>
+    public class MovieInfo : IEquatable<MovieInfo>
     {
-        public int Index { get; set; }
-        public T Value { get; set; }
-        public T Next { get; set; }
-    }
-
-    public class MovieInfo
-    {
-        string Name { get; set; }
-        string Format { get; set; }
-        long Size { get; set; }
-        string Link { get; set; }
+        public long Id { get; set; }
+        public string Name { get; set; }
+        public string Format { get; set; }
+        public long Size { get; set; }
+        public string Link { get; set; }
 
         public MovieInfo(string name, string format, long size, string link)
         {
@@ -58,6 +85,14 @@ namespace ClassLibrary.Structures
             Format = format;
             Size = size;
             Link = link;
+        }
+
+        public bool Equals(MovieInfo other)
+        {
+            return Name == other.Name 
+                && Format == other.Format 
+                && Size == other.Size 
+                && Link == other.Link;
         }
     }
 }
