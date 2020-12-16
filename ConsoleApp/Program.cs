@@ -18,9 +18,13 @@ namespace ConsoleApp
     {
         static void Main()
         {
-            var hash = new HashTable(1000000);
-            var baseMovies = MovieInfo.GetBaseMovies();
-            Console.WriteLine(hash.GetHash(new MovieInfo("dasaf", "safsdfdsfd", 14122, "eGESGSES")));
+            var MovArray = MovInfGenerator.GenerateMovArray(1000000);
+            HashTable Database = new HashTable(1000000);
+            foreach (MovieInfo movie in MovArray)
+            {
+                Database.Insert(movie);
+            }
+            Console.ReadLine();
         }
     }
 }

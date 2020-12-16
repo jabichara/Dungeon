@@ -44,6 +44,7 @@
     <Compile Include="Algorithms\InfixСonversion.cs" />
     <Compile Include="Comparers\StringAlphabetComparer.cs" />
     <Compile Include="Generators\IntArrayGenerator.cs" />
+    <Compile Include="Generators\MovInfGenerator.cs" />
     <Compile Include="Generators\TextGenerator.cs" />
     <Compile Include="Measurers\ActionTimeMeasurer.cs" />
     <Compile Include="Parsers\InfixConvParser.cs" />
