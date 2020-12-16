@@ -9,6 +9,7 @@ namespace ClassLibrary.Structures
 
     public class HashTable
     {
+        //xui
         private readonly byte _maxSize = 255;
         private readonly Dictionary<int, List<Item>> _items = null;
         public IReadOnlyCollection<KeyValuePair<int, List<Item>>> Items => _items?.ToList()?.AsReadOnly();
