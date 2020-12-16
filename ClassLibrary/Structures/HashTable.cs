@@ -22,6 +22,11 @@ namespace ClassLibrary.Structures
             movie = default(MovieInfo);
             return false;
         }
+
+        public int GetHash(MovieInfo movie)
+        {
+
+        }
     }
 
     public class HashTableItem<T>
@@ -33,7 +38,11 @@ namespace ClassLibrary.Structures
 
     public class MovieInfo
     {
-        string Name { get; set; }
-        string 
+        public string Key { get; set; }
+        public long Size { get; set; }
+        public string Format { get; set; }
+        public string Link { get; set; }
+
+        public M
     }
 }
