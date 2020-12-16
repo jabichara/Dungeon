@@ -33,40 +33,54 @@ namespace ConsoleApp
             {
                 string input = Console.ReadLine();
                 string[] parts = input.Split(' ');
-                if (input.Substring(0,7) == "delete ")
+                if (input.Length > 7)
                 {
-                    if (Database.Remove(parts[1]))
+                    if (input.Substring(0, 7) == "delete ")
                     {
-                        Console.WriteLine("удалено " + parts[1]);
+                        if (Database.Remove(parts[1]))
+                        {
+                            Console.WriteLine("удалено " + parts[1]);
+                        }
+                        else
+                        {
+                            Console.WriteLine("ненаход");
+                        }
                     }
-                }
-                else if (input.Substring(0, 7) == "search ")
-                {
-                    MovieInfo mi;
-                    if (Database.Search(parts[1], out mi))
+                    else if (input.Substring(0, 7) == "search ")
                     {
-                        Console.WriteLine(mi.Name);
-                        Console.WriteLine(mi.Link);
-                        Console.WriteLine(mi.Size);
-                        Console.WriteLine(mi.Format);
+                        MovieInfo mi;
+                        if (Database.Search(parts[1], out mi))
+                        {
+                            Console.WriteLine(mi.Name);
+                            Console.WriteLine(mi.Link);
+                            Console.WriteLine(mi.Size);
+                            Console.WriteLine(mi.Format);
+                        }
+                        else
+                        {
+                            Console.WriteLine("ненаход");
+                        }
                     }
-                }
-                else if (input.Substring(0, 7) == "insert ")
-                {
-                    if (parts.Length < 5)
+                    else if (input.Substring(0, 7) == "insert ")
                     {
-                        Console.WriteLine("Инвалидная команда, надо 4 параметра");
+                        if (parts.Length < 5)
+                        {
+                            Console.WriteLine("Инвалидная команда, надо 4 параметра");
+                        }
+                        else
+                        {
+                            long size;
+                            if (long.TryParse(parts[3], out size) &&
+                                Database.Insert(new MovieInfo(parts[1], parts[2], size, parts[4])))
+                            {
+                                Console.WriteLine("Успешно добавлено " + parts[1]);
+                            }
+                        }
                     }
-                    long size;
-                    if (long.TryParse(parts[3], out size) &&
-                        Database.Insert(new MovieInfo(parts[1], parts[2], size, parts[4])))
+                    else
                     {
-                        Console.WriteLine("Успешно добавлено " + parts[1]);
+                        Console.WriteLine("Инвалидная команда");
                     }
-                }
-                else
-                {
-                    Console.WriteLine("Инвалидная команда");
                 }
             }
         }
