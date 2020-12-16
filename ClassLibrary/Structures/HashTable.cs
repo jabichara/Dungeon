@@ -9,18 +9,32 @@ namespace ClassLibrary.Structures
 
     public class HashTable<MovieInfo>
     {
+        public long MaxCount { get; set; }
+
+        public HashTable(long maxCount)
+        {
+            MaxCount = maxCount;
+        }
+
         public bool Insert(MovieInfo movie)
         {
             return false;
         }
+
         public bool Remove()
         {
             return false;
         }
+
         public bool Search(out MovieInfo movie)
         {
             movie = default(MovieInfo);
             return false;
+        }
+
+        public long GetHash(MovieInfo movie)
+        {
+            return 0;
         }
     }
 
@@ -34,6 +48,8 @@ namespace ClassLibrary.Structures
     public class MovieInfo
     {
         string Name { get; set; }
-        string 
+        string Format { get; set; }
+        long Size { get; set; }
+        string Link { get; set; }
     }
 }
