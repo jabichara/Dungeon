@@ -19,7 +19,8 @@ namespace ConsoleApp
         static void Main()
         {
             var hash = new HashTable(1000000);
-            Console.WriteLine(hash.GetHash(new HashTable.MovieInfo("dasaf", "safsdfdsfd", 14122, "eGESGSES")));
+            var baseMovies = MovieInfo.GetBaseMovies();
+            Console.WriteLine(hash.GetHash(new MovieInfo("dasaf", "safsdfdsfd", 14122, "eGESGSES")));
         }
     }
 }
