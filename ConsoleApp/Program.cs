@@ -10,6 +10,7 @@ using ConsoleApp.ConsoleViews;
 using ClassLibrary.Parsers;
 using ClassLibrary.Structures;
 using System.Net;
+using System.Collections;
 
 namespace ConsoleApp
 {
@@ -17,8 +18,8 @@ namespace ConsoleApp
     {
         static void Main()
         {
-            TextSorting.Show();
-            Console.ReadLine();
+            var hash = new HashTable(1000000);
+            Console.WriteLine(hash.GetHash(new HashTable.MovieInfo("dasaf", "safsdfdsfd", 14122, "eGESGSES")));
         }
     }
 }
