@@ -51,5 +51,13 @@ namespace ClassLibrary.Structures
         string Format { get; set; }
         long Size { get; set; }
         string Link { get; set; }
+
+        public MovieInfo(string name, string format, long size, string link)
+        {
+            Name = name;
+            Format = format;
+            Size = size;
+            Link = link;
+        }
     }
 }
