@@ -18,11 +18,48 @@ namespace ConsoleApp
     {
         static void Main()
         {
-            var MovArray = MovInfGenerator.GenerateMovArray(1000000);
-            HashTable Database = new HashTable(1000000);
+            var MovArray = MovInfGenerator.GenerateMovArray(100);
+            HashTable Database = new HashTable(1000);
             foreach (MovieInfo movie in MovArray)
             {
                 Database.Insert(movie);
+            }
+            Database.Insert(new MovieInfo("Jopa", ".jp", 100, "www.jopa.com"));
+            //for (int i = 0; i < 1000; i++)
+            //{
+            //    Console.WriteLine(Database.GetHash("Jopa"));
+            //}
+            while (true)
+            {
+                string input = Console.ReadLine();
+                string[] parts = input.Split(' ');
+                if (input.Substring(0,7) == "delete ")
+                {
+                    if (Database.Remove(parts[1]))
+                    {
+                        Console.WriteLine("удалено " + parts[1]);
+                    }
+                }
+                else if (input.Substring(0, 7) == "search ")
+                {
+                    MovieInfo mi;
+                    if (Database.Search(parts[1], out mi))
+                    {
+                        Console.WriteLine(mi.Name);
+                        Console.WriteLine(mi.Link);
+                        Console.WriteLine(mi.Size);
+                        Console.WriteLine(mi.Format);
+                    }
+                }
+                else if (input.Substring(0, 7) == "insert ")
+                {
+                    
+
+                }
+                else
+                {
+                    Console.WriteLine(" ");
+                }
             }
             Console.ReadLine();
         }

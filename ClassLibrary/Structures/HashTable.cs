@@ -41,7 +41,7 @@ namespace ClassLibrary.Structures
             long hash = GetHash(movieName);
             for (long i = hash; i < Values.Length; i++)
             {
-                if (movieName.Equals(Values[i].Name))
+                if (Values[i] != null && movieName.Equals(Values[i].Name))
                 {
                     Values[i] = null;
                     return true;
@@ -55,7 +55,7 @@ namespace ClassLibrary.Structures
             long hash = GetHash(movieName);
             for (long i = hash; i < Values.Length; i++)
             {
-                if (movieName.Equals(Values[i].Name))
+                if (Values[i] != null && movieName.Equals(Values[i].Name))
                 {
                     found = Values[i];
                     return true;
@@ -69,10 +69,7 @@ namespace ClassLibrary.Structures
         {
             long hash = 0;
             var rnd = new Random();
-            var a = rnd.Next(1, 100);
-            var b = rnd.Next(50, 200);
-            var c = rnd.Next(200, 1000);
-            var koef = Math.Pow(c, 5) + (Math.Sqrt(b) * rnd.Next(1000)) * c;
+            var koef = 543254.5234;
             foreach (char ch in movieName)
             {
                 hash += (long)(Convert.ToInt16(ch) * koef);
