@@ -53,15 +53,22 @@ namespace ConsoleApp
                 }
                 else if (input.Substring(0, 7) == "insert ")
                 {
-                    
-
+                    if (parts.Length < 5)
+                    {
+                        Console.WriteLine("Инвалидная команда, надо 4 параметра");
+                    }
+                    long size;
+                    if (long.TryParse(parts[3], out size) &&
+                        Database.Insert(new MovieInfo(parts[1], parts[2], size, parts[4])))
+                    {
+                        Console.WriteLine("Успешно добавлено " + parts[1]);
+                    }
                 }
                 else
                 {
-                    Console.WriteLine(" ");
+                    Console.WriteLine("Инвалидная команда");
                 }
             }
-            Console.ReadLine();
         }
     }
 }
