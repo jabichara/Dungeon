@@ -7,15 +7,33 @@ using System.Threading.Tasks;
 namespace ClassLibrary.Structures
 {
 
-    public class HashTable
+    public class HashTable<MovieInfo>
     {
-        public void Remove()
+        public bool Insert(MovieInfo movie)
         {
-
+            return false;
         }
-
-        public double GetHash()
+        public bool Remove()
         {
-
+            return false;
+        }
+        public bool Search(out MovieInfo movie)
+        {
+            movie = default(MovieInfo);
+            return false;
         }
     }
+
+    public class HashTableItem<T>
+    {
+        public int Index { get; set; }
+        public T Value { get; set; }
+        public T Next { get; set; }
+    }
+
+    public class MovieInfo
+    {
+        string Name { get; set; }
+        string 
+    }
+}
